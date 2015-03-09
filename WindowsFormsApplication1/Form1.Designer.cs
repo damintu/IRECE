@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStripIRCE = new System.Windows.Forms.MenuStrip();
             this.accueilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxClient = new System.Windows.Forms.GroupBox();
             this.groupBoxServeur = new System.Windows.Forms.GroupBox();
@@ -44,20 +44,20 @@
             this.listMessages = new System.Windows.Forms.ListBox();
             this.textBoxMessage = new System.Windows.Forms.TextBox();
             this.buttonEnvoyer = new System.Windows.Forms.Button();
-            this.menuStrip1.SuspendLayout();
+            this.menuStripIRCE.SuspendLayout();
             this.groupBoxClient.SuspendLayout();
             this.groupBoxServeur.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuStripIRCE
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStripIRCE.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.accueilToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(546, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStripIRCE.Location = new System.Drawing.Point(0, 0);
+            this.menuStripIRCE.Name = "menuStripIRCE";
+            this.menuStripIRCE.Size = new System.Drawing.Size(546, 24);
+            this.menuStripIRCE.TabIndex = 0;
+            this.menuStripIRCE.Text = "menuStrip1";
             // 
             // accueilToolStripMenuItem
             // 
@@ -164,6 +164,7 @@
             this.buttonConnexion.TabIndex = 3;
             this.buttonConnexion.Text = "Se connecter";
             this.buttonConnexion.UseVisualStyleBackColor = true;
+            this.buttonConnexion.Click += new System.EventHandler(this.buttonConnexion_Click);
             // 
             // listMessages
             // 
@@ -188,6 +189,7 @@
             this.buttonEnvoyer.TabIndex = 6;
             this.buttonEnvoyer.Text = "Envoyer";
             this.buttonEnvoyer.UseVisualStyleBackColor = true;
+            this.buttonEnvoyer.Click += new System.EventHandler(this.buttonEnvoyer_Click);
             // 
             // IRCE
             // 
@@ -200,12 +202,13 @@
             this.Controls.Add(this.buttonConnexion);
             this.Controls.Add(this.groupBoxServeur);
             this.Controls.Add(this.groupBoxClient);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.menuStripIRCE);
+            this.MainMenuStrip = this.menuStripIRCE;
             this.Name = "IRCE";
             this.Text = "IRCE";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Load += new System.EventHandler(this.IRCE_Load);
+            this.menuStripIRCE.ResumeLayout(false);
+            this.menuStripIRCE.PerformLayout();
             this.groupBoxClient.ResumeLayout(false);
             this.groupBoxClient.PerformLayout();
             this.groupBoxServeur.ResumeLayout(false);
@@ -217,7 +220,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStripIRCE;
         private System.Windows.Forms.ToolStripMenuItem accueilToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBoxClient;
         private System.Windows.Forms.GroupBox groupBoxServeur;
