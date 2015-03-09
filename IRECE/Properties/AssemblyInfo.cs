@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("IRECE")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("SRV-ETU-SCCMS")]
 [assembly: AssemblyProduct("IRECE")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright © SRV-ETU-SCCMS 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("3610c511-c7d3-4581-b813-9560b3de73ab")]
+[assembly: Guid("d8857550-3535-4eea-a0fe-c24d0f8b384f")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //

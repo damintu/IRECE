@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
 
 namespace WindowsFormsApplication1
 {
@@ -57,9 +58,43 @@ namespace WindowsFormsApplication1
 
         private void buttonConnexion_Click(object sender, EventArgs e)
         {
+            try
+            {
+                TcpClient tcpclnt = new TcpClient();
+                Console.WriteLine("Connecting.....");
+
+                tcpclnt.Connect("127.0.0.1", 5000);
+                // use the ipaddress as in the server program
+
+                Console.WriteLine("Connected");
+                return;
+
+                String str = "test";
+                Stream stm = tcpclnt.GetStream();
+
+                ASCIIEncoding asen = new ASCIIEncoding();
+                byte[] ba = asen.GetBytes(str);
+                Console.WriteLine("Transmitting.....");
+
+                stm.Write(ba, 0, ba.Length);
+
+                byte[] bb = new byte[100];
+                int k = stm.Read(bb, 0, 100);
+
+                for (int i = 0; i < k; i++)
+                    Console.Write(Convert.ToChar(bb[i]));
+
+                tcpclnt.Close();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error..... " + ex.StackTrace);
+            }
+            return;
             //on binde le socket
-            endPointLocal = new IPEndPoint(IPAddress.Parse(textBoxClientPort.Text), Convert.ToInt32(textBoxClientPort.Text));
-            socket.Bind(endPointLocal);
+//endPointLocal = new IPEndPoint(IPAddress.Parse(textBoxClientPort.Text), Convert.ToInt32(textBoxClientPort.Text));
+            //socket.Bind(endPointLocal);
             // on se connecte au serveur
             endPointRemote = new IPEndPoint(IPAddress.Parse(textBoxServeurHote.Text), Convert.ToInt32(textBoxServeurPort.Text));
             socket.Connect(endPointRemote);
