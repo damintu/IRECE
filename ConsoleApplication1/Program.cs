@@ -14,10 +14,11 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
+            Console.WriteLine("YOLO");
             //Socket mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //mySocket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.AcceptConnection, true);
             IPAddress ipAd = IPAddress.Parse("127.0.0.1");
-            TcpListener listener = new TcpListener(ipAd,5000);
+            TcpListener listener = new TcpListener(ipAd, 8888);
             listener.Start();
             Console.WriteLine("The server is running at port 5000...");
             Console.WriteLine("The local End point is  :" +
