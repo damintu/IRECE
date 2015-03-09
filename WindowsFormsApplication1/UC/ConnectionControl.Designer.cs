@@ -75,6 +75,7 @@
             this.validateBtn.TabIndex = 4;
             this.validateBtn.Text = "Connexion";
             this.validateBtn.UseVisualStyleBackColor = true;
+            this.validateBtn.Click += new System.EventHandler(this.validateBtn_Click);
             // 
             // ConnectionControl
             // 

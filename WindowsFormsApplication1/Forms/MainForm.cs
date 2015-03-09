@@ -16,5 +16,21 @@ namespace IRECEClient.Forms
         {
             InitializeComponent();
         }
+
+        private void ConnectionBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+            }catch(Exception exeption){
+
+            }
+
+
+        }
+
+        private void connectionControl1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
