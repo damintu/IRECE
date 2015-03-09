@@ -30,7 +30,8 @@ namespace IRECEServer
                     Socket s = serverListener.AcceptSocket();
                     Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
                     Connection c = new Connection(s);
-                    Thread workerThread = new Thread(c.Run);
+                    Thread conThread = new Thread(c.Run);
+                    conThread.Start();
                 }
             }
             catch (Exception e)

@@ -24,15 +24,9 @@ namespace IRECEClient.UC
             try
             {
                 TcpClient tcpclnt = new TcpClient();
-                Console.WriteLine("Connecting.....");
-
                 tcpclnt.Connect("127.0.0.1", 5000);
-                // use the ipaddress as in the server program
 
-                Console.WriteLine("Connected");
-                Console.Write("Enter the string to be transmitted : ");
-
-                String str = Console.ReadLine();
+                String str = "LOL";
                 Stream stm = tcpclnt.GetStream();
 
                 ASCIIEncoding asen = new ASCIIEncoding();

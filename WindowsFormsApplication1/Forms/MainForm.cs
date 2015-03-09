@@ -21,7 +21,7 @@ namespace IRECEClient.Forms
         {
             try
             {
-            }catch(Exception exeption){
+            }catch(Exception exception){
 
             }
 

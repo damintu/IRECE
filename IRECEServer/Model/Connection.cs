@@ -19,7 +19,15 @@ namespace IRECEServer.Model
         public void Run()
         {
             Console.WriteLine("Running !");
-            return;
+            byte[] b = new byte[100];
+            int k = socket.Receive(b);
+            Console.WriteLine("Recieved...");
+            for (int i = 0; i < k; i++)
+                Console.Write(Convert.ToChar(b[i]));
+
+            ASCIIEncoding asen = new ASCIIEncoding();
+            socket.Send(asen.GetBytes("The string was recieved by the server."));
+            Console.WriteLine("\nSent Acknowledgement");
         }
     }
 }
