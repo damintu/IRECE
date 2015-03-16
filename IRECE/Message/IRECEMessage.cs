@@ -12,6 +12,21 @@ namespace IRECE.Message
     [DataContract]
     public class IRECEMessage
     {
+        // needs to be sent to connect.
+        public const string CONNECT = "CONNECT";
+
+        // needs to be set as type to send a message in a channel
+        public const string MESSAGE = "MESSAGE";
+
+        // needs to be sent to disconnect.
+        public const string DISCONNECT = "DISCONNECTED";
+
+        // needs to be send to avoid being timed out
+        public const string KEEP_ALIVE_QUESTION = "ping";
+
+        // needs to be received from the server to know that we are still alive ♫
+        public const string KEEP_ALIVE_RESPONSE = "pong";
+
         [DataMember]
         public string Command { get; set; }
         [DataMember]
