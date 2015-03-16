@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IRECEClient.Service;
 using System.IO;
-using IRECE.Message;
+using IRECE;
 
 namespace IRECEClient.UC
 {
