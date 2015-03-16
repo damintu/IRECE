@@ -76,6 +76,7 @@
             this.sendBtn.TabIndex = 4;
             this.sendBtn.Text = "Envoyer";
             this.sendBtn.UseVisualStyleBackColor = true;
+            this.sendBtn.Click += new System.EventHandler(this.sendBtn_Click);
             // 
             // MessageControl
             // 

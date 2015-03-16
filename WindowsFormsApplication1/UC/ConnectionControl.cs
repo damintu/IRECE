@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.IO;
+using IRECEClient.Service;
 
 namespace IRECEClient.UC
 {
@@ -23,33 +24,25 @@ namespace IRECEClient.UC
         {
             try
             {
+
+
                 TcpClient tcpclnt = new TcpClient();
-                tcpclnt.Connect("127.0.0.1", 5000);
 
-                String str = "LOL";
-                Stream stm = tcpclnt.GetStream();
+                if (this.ipTextBox.Text != "" && this.portTextBox.Text != "")
+                {
 
-                ASCIIEncoding asen = new ASCIIEncoding();
-                byte[] ba = asen.GetBytes(str);
-                Console.WriteLine("Transmitting.....");
-
-                stm.Write(ba, 0, ba.Length);
-
-                byte[] bb = new byte[100];
-                int k = stm.Read(bb, 0, 100);
-
-                for (int i = 0; i < k; i++)
-                    Console.Write(Convert.ToChar(bb[i]));
-
-                tcpclnt.Close();
+                    tcpclnt.Connect(this.ipTextBox.Text, Convert.ToInt32(this.portTextBox.Text));
+                    StreamService.Instance.Stm = tcpclnt.GetStream();
+                }
             }
-
-            catch (Exception exception)
+            catch (Exception exep)
             {
-                Console.WriteLine("Error..... " + exception.StackTrace);
+                Console.WriteLine(exep.ToString());
             }
-
-
         }
+        
+          
+
+
     }
 }

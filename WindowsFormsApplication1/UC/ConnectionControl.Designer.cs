@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ipTextBox = new System.Windows.Forms.TextBox();
             this.IpAdressLabel = new System.Windows.Forms.Label();
             this.portLabel = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.portTextBox = new System.Windows.Forms.TextBox();
             this.validateBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // ipTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(109, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 0;
+            this.ipTextBox.Location = new System.Drawing.Point(109, 13);
+            this.ipTextBox.Name = "ipTextBox";
+            this.ipTextBox.Size = new System.Drawing.Size(100, 20);
+            this.ipTextBox.TabIndex = 0;
             // 
             // IpAdressLabel
             // 
@@ -60,12 +60,12 @@
             this.portLabel.TabIndex = 2;
             this.portLabel.Text = "Port :";
             // 
-            // textBox2
+            // portTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(109, 40);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.portTextBox.Location = new System.Drawing.Point(109, 40);
+            this.portTextBox.Name = "portTextBox";
+            this.portTextBox.Size = new System.Drawing.Size(100, 20);
+            this.portTextBox.TabIndex = 3;
             // 
             // validateBtn
             // 
@@ -82,10 +82,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.validateBtn);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.portTextBox);
             this.Controls.Add(this.portLabel);
             this.Controls.Add(this.IpAdressLabel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ipTextBox);
             this.Name = "ConnectionControl";
             this.Size = new System.Drawing.Size(221, 105);
             this.ResumeLayout(false);
@@ -95,10 +95,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ipTextBox;
         private System.Windows.Forms.Label IpAdressLabel;
         private System.Windows.Forms.Label portLabel;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox portTextBox;
         private System.Windows.Forms.Button validateBtn;
     }
 }
