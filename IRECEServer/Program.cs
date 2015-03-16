@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using IRECEServer.Model;
+using IRECE.Message;
 
 namespace IRECEServer
 {
@@ -17,6 +18,13 @@ namespace IRECEServer
 
         static void Main(string[] args)
         {
+            Channel ch = new Channel();
+            Message str = new Message();
+            str.Text = "Test";
+            ch.Send(str);
+            Message m = (Message) Message.Deserialize("{\"Text\":\"Test\",\"Command\":null}");
+            Console.WriteLine(m.Text);
+
             try
             {
                 IPAddress serverIp = IPAddress.Parse(SERVER_IP);
@@ -29,7 +37,7 @@ namespace IRECEServer
                 while (true) {
                     Socket s = serverListener.AcceptSocket();
                     Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
-                    Connection c = new Connection(s);
+                    Client c = new Client(s);
                     Thread conThread = new Thread(c.Run);
                     conThread.Start();
                 }
