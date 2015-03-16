@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\SystemChannel.cs" />
     <Compile Include="Model\Channel.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Program.cs" />
