@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using IRECEServer.Model;
-using IRECE.Message;
 
 namespace IRECEServer
 {
@@ -18,12 +17,13 @@ namespace IRECEServer
 
         static void Main(string[] args)
         {
+            Channel.Channels = new List<Channel>();
+            Channel sysChan = new SystemChannel();
+            Channel.Channels.Add(sysChan);
             Channel ch = new Channel();
-            IRECEMessage str = new IRECEMessage();
-            str.Text = "Test";
-            ch.Send(str);
-            IRECEMessage m = (IRECEMessage) IRECEMessage.Deserialize("{\"Text\":\"Test\",\"Command\":null}");
-            Console.WriteLine(m.Text);
+            ch.Name = Channel.SYSTEM_CH_MAIN;
+            ch.Type = Channel.TYPE_PUBLIC;
+            Channel.Channels.Add(ch);
 
             try
             {

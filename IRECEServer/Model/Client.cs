@@ -19,13 +19,12 @@ namespace IRECEServer.Model
 
         public void Run()
         {
-            byte[] b = new byte[100];
+            byte[] b = new byte[2048];
             int k;
             while ((k = socket.Receive(b)) != 0)
             {
-                for (int i = 0; i < k; i++)
-                    Console.Write(Convert.ToChar(b[i]));
-
+                string message = Encoding.UTF8.GetString(b, 0, k);
+                IRECEMessage mes = IRECEMessage.Deserialize(message);
                 Channel c = new Channel();
                 IRECEMessage s = new IRECEMessage();
                 s.Text = "Test";
