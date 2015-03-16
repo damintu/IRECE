@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IRECE.Message;
+using IRECE;
 
 namespace IRECEServer.Model
 {
@@ -22,7 +22,7 @@ namespace IRECEServer.Model
 
             switch (m.Command)
             {
-                case "CONNECT": // TODO Use constant
+                case IRECEMessage.CONNECT:
                     connectClient(c, ch);
                     break;
                 default:
