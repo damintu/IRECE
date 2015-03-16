@@ -12,7 +12,7 @@ namespace IRECEServer.Model
         public string Name { get; set; }
         public List<Client> Clients { get; set; }
 
-        public void Send(Message m)
+        public void Send(IRECEMessage m)
         {
             Console.WriteLine(m.ToString());
         }

@@ -10,7 +10,7 @@ using System.IO;
 namespace IRECE.Message
 {
     [DataContract]
-    public class Message
+    public class IRECEMessage
     {
         [DataMember]
         public string Command { get; set; }
@@ -25,7 +25,7 @@ namespace IRECE.Message
             using (MemoryStream s = new MemoryStream())
             using (StreamReader sr = new StreamReader(s))
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Message));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(IRECEMessage));
                 serializer.WriteObject(s, this);
                 s.Position = 0;
                 str = sr.ReadToEnd();
@@ -33,15 +33,15 @@ namespace IRECE.Message
             return str;
         }
 
-        public static Message Deserialize(string json)
+        public static IRECEMessage Deserialize(string json)
         {
-            Message m;
+            IRECEMessage m;
             using (MemoryStream s = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)))
             using (StreamReader sr = new StreamReader(s))
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Message));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(IRECEMessage));
                 s.Position = 0;
-                m = (Message)serializer.ReadObject(s);
+                m = (IRECEMessage)serializer.ReadObject(s);
             }
             return m;
         }

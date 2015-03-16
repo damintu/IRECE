@@ -19,10 +19,10 @@ namespace IRECEServer
         static void Main(string[] args)
         {
             Channel ch = new Channel();
-            Message str = new Message();
+            IRECEMessage str = new IRECEMessage();
             str.Text = "Test";
             ch.Send(str);
-            Message m = (Message) Message.Deserialize("{\"Text\":\"Test\",\"Command\":null}");
+            IRECEMessage m = (IRECEMessage) IRECEMessage.Deserialize("{\"Text\":\"Test\",\"Command\":null}");
             Console.WriteLine(m.Text);
 
             try

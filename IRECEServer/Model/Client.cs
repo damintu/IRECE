@@ -27,7 +27,7 @@ namespace IRECEServer.Model
                     Console.Write(Convert.ToChar(b[i]));
 
                 Channel c = new Channel();
-                Message s = new Message();
+                IRECEMessage s = new IRECEMessage();
                 s.Text = "Test";
                 c.Send(s);
 
