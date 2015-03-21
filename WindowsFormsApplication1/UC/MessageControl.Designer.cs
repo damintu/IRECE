@@ -88,7 +88,7 @@
             this.Controls.Add(this.channelNamelabel);
             this.Controls.Add(this.listBox1);
             this.Name = "MessageControl";
-            this.Size = new System.Drawing.Size(721, 300);
+            this.Size = new System.Drawing.Size(721, 190);
             this.ResumeLayout(false);
             this.PerformLayout();
 

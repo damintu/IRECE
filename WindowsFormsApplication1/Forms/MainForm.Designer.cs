@@ -34,16 +34,16 @@
             // 
             // messageControl1
             // 
-            this.messageControl1.Location = new System.Drawing.Point(12, 151);
+            this.messageControl1.Location = new System.Drawing.Point(12, 197);
             this.messageControl1.Name = "messageControl1";
-            this.messageControl1.Size = new System.Drawing.Size(721, 300);
+            this.messageControl1.Size = new System.Drawing.Size(721, 180);
             this.messageControl1.TabIndex = 2;
             // 
             // connectionControl1
             // 
             this.connectionControl1.Location = new System.Drawing.Point(12, 12);
             this.connectionControl1.Name = "connectionControl1";
-            this.connectionControl1.Size = new System.Drawing.Size(260, 105);
+            this.connectionControl1.Size = new System.Drawing.Size(260, 179);
             this.connectionControl1.TabIndex = 1;
             this.connectionControl1.Load += new System.EventHandler(this.connectionControl1_Load);
             // 

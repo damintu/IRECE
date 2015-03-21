@@ -26,9 +26,7 @@ namespace IRECEServer.Model
                 string message = Encoding.UTF8.GetString(b, 0, k);
                 IRECEMessage mes = IRECEMessage.Deserialize(message);
                 Channel c = new Channel();
-                IRECEMessage s = new IRECEMessage();
-                s.Text = "Test";
-                c.Send(s);
+                c.Send(mes);
 
                 ASCIIEncoding asen = new ASCIIEncoding();
                 socket.Send(asen.GetBytes("The string was recieved by the server."));

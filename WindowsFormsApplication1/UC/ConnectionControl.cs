@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.IO;
 using IRECEClient.Service;
+using IRECEClient.Forms;
 
 namespace IRECEClient.UC
 {
@@ -18,13 +19,14 @@ namespace IRECEClient.UC
         public ConnectionControl()
         {
             InitializeComponent();
+            this.ipTextBox.Text = "192.168.0.23";
+            this.portTextBox.Text = "5000";
         }
 
         private void validateBtn_Click(object sender, EventArgs e)
         {
             try
             {
-
 
                 TcpClient tcpclnt = new TcpClient();
 
@@ -33,6 +35,10 @@ namespace IRECEClient.UC
 
                     tcpclnt.Connect(this.ipTextBox.Text, Convert.ToInt32(this.portTextBox.Text));
                     StreamService.Instance.Stm = tcpclnt.GetStream();
+
+                    this.ParentForm.DialogResult = DialogResult.OK;
+                    this.ParentForm.Close();
+                    
                 }
             }
             catch (Exception exep)

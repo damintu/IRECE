@@ -27,6 +27,12 @@ namespace IRECE
         // needs to be received from the server to know that we are still alive ♫
         public const string KEEP_ALIVE_RESPONSE = "pong";
 
+        // needs to be send if user wants own login
+        public const string LOGIN = "LOGIN";
+
+        // needs to be send if user wants to secure his login
+        public const string PASSWORD = "PASSWORD";
+
         [DataMember]
         public string Command { get; set; }
         [DataMember]
