@@ -10,6 +10,16 @@ namespace IRECEClient.Service
 {
     class StreamService
     {
+        private IRECEMessage lastMessage;
+
+        public IRECEMessage LastMessage
+        {
+            get { return lastMessage; }
+            set { lastMessage = value; }
+        }
+
+        
+
         private static StreamService instance;
 
         private StreamService() { }
@@ -52,8 +62,11 @@ namespace IRECEClient.Service
                 sb.Append((Convert.ToChar(bb[i])));
                 Console.Write((Convert.ToChar(bb[i])));
             }
-            return IRECEMessage.Deserialize(sb.ToString());
+            lastMessage = IRECEMessage.Deserialize(sb.ToString());
+            return lastMessage;
         }
+
+
                   
     }
 }

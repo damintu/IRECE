@@ -53,8 +53,17 @@ namespace IRECEClient.UC
                         message = stm.getMessage();
                         if (message.Command == IRECEMessage.ACK)
                         {
-                            this.ParentForm.DialogResult = DialogResult.OK;
-                            this.ParentForm.Close();
+                            message.Command = IRECEMessage.CHANNELS_REQUEST;
+                            message.Text = "";
+                            stm.SendMessage(message);
+                            message = stm.getMessage();
+
+                            if (message.Command == IRECEMessage.CHANNELS_RESPONSE)
+                            {
+                                this.ParentForm.DialogResult = DialogResult.OK;
+                                this.ParentForm.Close();
+                            }
+                            
                         }
                     }
 
