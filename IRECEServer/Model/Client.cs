@@ -8,29 +8,53 @@ using IRECE;
 
 namespace IRECEServer.Model
 {
-    class Client
+    public class Client
     {
-        private Socket socket;
+        public Socket Socket { get; set; }
+
+        public string Username { get; set; }
+
+        public User User { get; set; }
+
+        public static List<Client> Clients { get; set; }
 
         public Client(Socket s)
         {
-            socket = s;
+            Socket = s;
         }
 
         public void Run()
         {
             byte[] b = new byte[2048];
             int k;
-            while ((k = socket.Receive(b)) != 0)
+            try
             {
-                string message = Encoding.UTF8.GetString(b, 0, k);
-                IRECEMessage mes = IRECEMessage.Deserialize(message);
-                Channel c = new Channel();
-                c.Send(mes);
-
-                ASCIIEncoding asen = new ASCIIEncoding();
-                socket.Send(asen.GetBytes("The string was recieved by the server."));
-                Console.WriteLine("\nSent Acknowledgement");
+                Channel current;
+                while ((k = Socket.Receive(b)) != 0)
+                {
+                    string message = Encoding.UTF8.GetString(b, 0, k);
+                    IRECEMessage mes = IRECEMessage.Deserialize(message);
+                    if (null == mes.Channel)
+                    {
+                        Channel.SystemChannel.SendError(this, "Aucun canal défini.");
+                    }
+                    else
+                    {
+                        current = Channel.GetByName(mes.Channel);
+                        if (null == current)
+                        {
+                            Channel.SystemChannel.SendError(this, "Le canal demandé n'existe pas.");
+                        }
+                        else
+                        {
+                            current.Manage(this, mes);
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.ToString());
             }
         }
     }

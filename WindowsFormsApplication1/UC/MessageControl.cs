@@ -28,8 +28,9 @@ namespace IRECEClient.UC
                 {
                   IRECEMessage mes = new IRECEMessage();
                   mes.Channel = "main";
-                  mes.Command = IRECEMessage.CONNECT;
+                  mes.Command = IRECEMessage.USER;
                   mes.Text = this.messageTextBox.Text;
+
                   Console.WriteLine("Transmitting.....");
                   Stream stm = StreamService.Instance.Stm;
 
