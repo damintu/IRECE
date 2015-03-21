@@ -15,14 +15,14 @@ namespace IRECEServer.Model
         {
             switch (m.Command)
             {
-                case "user":
+                case IRECEMessage.USER:
                     connectUser(c, m.Text);
                     break;
-                case "pass":
-                    connectUser(c, m.Text);
+                case IRECEMessage.PASSWORD:
+                    connectUserWithPassword(c, m.Text);
                     break;
                 default:
-                    // TODO Do things
+                    SendError(c, "Unknown command.");
                     break;
             }
         }
@@ -33,11 +33,40 @@ namespace IRECEServer.Model
             {
                 if (cli.User != null && cli.User.Username == username)
                 {
-                    SendError(c, "Le nom d'utilisateur demandé est déjà connecté.");
+                    SendError(c, "Username already exists.");
                     return false;
                 }
             }
             c.Username = username;
+            SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.PASSWORD_REQUEST, "");
+            return true;
+        }
+
+        private bool connectUserWithPassword(Client c, string password)
+        {
+            if (c.Username == null)
+            {
+                SendError(c, "Username ?");
+                return false;
+            }
+           
+            User user = User.GetByUsername(c.Username);
+            if (user == null)
+            {
+                user = new User();
+                user.Username = c.Username;
+                user.Password = password;
+                c.User = user;
+                SendACK(c);
+                return true;
+            }
+            else if (user.Password != password)
+            {
+                SendError(c, "Bad credentials.");
+                return false;
+            }
+            c.User = user;
+            SendACK(c);
             return true;
         }
 

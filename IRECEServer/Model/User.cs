@@ -12,5 +12,17 @@ namespace IRECEServer.Model
         public String Password { get; set; }
 
         public static List<User> Users { get; set; }
+
+        public static User GetByUsername(string name)
+        {
+            foreach (User user in User.Users)
+            {
+                if (user.Username == name)
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
     }
 }

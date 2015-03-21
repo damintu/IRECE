@@ -40,6 +40,12 @@ namespace IRECE
         // needs to be send if user wants to secure his login
         public const string PASSWORD = "PASSWORD";
 
+        // requests the channels list
+        public const string CHANNELS_REQUEST = "CHANNELS_REQUEST";
+
+        // sends a client the channels list
+        public const string CHANNELS_RESPONSE = "CHANNELS_RESPONSE";
+
         [DataMember]
         public string Command { get; set; }
         [DataMember]

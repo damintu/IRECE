@@ -28,6 +28,7 @@ namespace IRECE
             }
             return null;
         }
+
         public static Channel GetSystemChannel()
         {
             return SystemChannel;
@@ -60,6 +61,7 @@ namespace IRECE
             message.Text = text;
             UTF8Encoding utf8 = new UTF8Encoding();
             c.Socket.Send(utf8.GetBytes(message.ToString()));
+            Console.WriteLine(message.ToString());
         }
     }
 }
