@@ -12,14 +12,26 @@ namespace IRECE
     [DataContract]
     public class IRECEMessage
     {
-        // needs to be sent to connect.
-        public const string CONNECT = "CONNECT";
+        // 
+        public const string USER = "USER";
+
+        // 
+        public const string PASSWORD = "PASSWORD";
 
         // needs to be set as type to send a message in a channel
         public const string MESSAGE = "MESSAGE";
 
         // needs to be sent to disconnect.
         public const string DISCONNECT = "DISCONNECTED";
+
+        // sent when an error occurs.
+        public const string ERROR = "ERROR";
+
+        // sent as an acknowledgment.
+        public const string ACK = "ACK";
+
+        // sent after the client has sent an username that needs a password.
+        public const string PASSWORD_REQUEST = "PASSWORD_REQUEST";
 
         // needs to be send to avoid being timed out
         public const string KEEP_ALIVE_QUESTION = "ping";

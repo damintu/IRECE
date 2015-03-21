@@ -7,23 +7,19 @@ using IRECE;
 
 namespace IRECEServer.Model
 {
-    class SystemChannel : Channel
+    public class SystemChannel : Channel
     {
-        public new string Name { get { return Channel.SYSTEM_CH_SYSTEM; } }
         public new string Type { get { return Channel.SYSTEM_CH_SYSTEM; } }
 
-        public void Manage(Client c, IRECEMessage m)
+        public override void Manage(Client c, IRECEMessage m)
         {
-            Channel ch = Channel.GetByName(m.Channel);
-            if (null == ch)
-            {
-                // TODO Send error to client;
-            }
-
             switch (m.Command)
             {
-                case IRECEMessage.CONNECT:
-                    connectClient(c, ch);
+                case "user":
+                    connectUser(c, m.Text);
+                    break;
+                case "pass":
+                    connectUser(c, m.Text);
                     break;
                 default:
                     // TODO Do things
@@ -31,9 +27,23 @@ namespace IRECEServer.Model
             }
         }
 
-        private void connectClient(Client c, Channel ch)
+        private bool connectUser(Client c, string username)
         {
+            foreach (Client cli in Client.Clients)
+            {
+                if (cli.User != null && cli.User.Username == username)
+                {
+                    SendError(c, "Le nom d'utilisateur demandé est déjà connecté.");
+                    return false;
+                }
+            }
+            c.Username = username;
+            return true;
+        }
 
+        public void SendError(Client c, string text)
+        {
+            SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.ERROR, text);
         }
     }
 }

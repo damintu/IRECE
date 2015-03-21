@@ -25,8 +25,8 @@ namespace IRECEClient.UC
             if (this.messageTextBox.Text != "")
             {
                   IRECEMessage mes = new IRECEMessage();
-                  mes.Channel = "System";
-                  mes.Command = IRECEMessage.CONNECT;
+                  mes.Channel = "system";
+                  mes.Command = "LOGIN";
                   mes.Text = "Text";
                   Console.WriteLine("Transmitting.....");
                   Stream stm = StreamService.Instance.Stm;
