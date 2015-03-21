@@ -45,6 +45,7 @@ namespace IRECEServer
                     Socket s = serverListener.AcceptSocket();
                     Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
                     Client c = new Client(s);
+                    c.Channels = new List<Channel>();
                     Client.Clients.Add(c);
                     Channel.SystemChannel.Clients.Add(c);
                     Thread conThread = new Thread(c.Run);
