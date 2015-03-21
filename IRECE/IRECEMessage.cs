@@ -12,11 +12,6 @@ namespace IRECE
     [DataContract]
     public class IRECEMessage
     {
-        // 
-        public const string USER = "USER";
-
-        // 
-        public const string PASSWORD = "PASSWORD";
 
         // needs to be set as type to send a message in a channel
         public const string MESSAGE = "MESSAGE";
@@ -39,8 +34,8 @@ namespace IRECE
         // needs to be received from the server to know that we are still alive ♫
         public const string KEEP_ALIVE_RESPONSE = "pong";
 
-        // needs to be send if user wants own login
-        public const string LOGIN = "LOGIN";
+        // needs to be send if user wants own username
+        public const string USER = "USER";
 
         // needs to be send if user wants to secure his login
         public const string PASSWORD = "PASSWORD";
