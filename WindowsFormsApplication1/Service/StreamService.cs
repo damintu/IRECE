@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using IRECE;
 
 namespace IRECEClient.Service
 {
@@ -33,5 +34,26 @@ namespace IRECEClient.Service
           set { stm = value; }
         }
 
+        public void SendMessage(IRECEMessage message)
+        {
+            UTF8Encoding utf8 = new UTF8Encoding();
+            this.Stm.Write(utf8.GetBytes(message.ToString()), 0, utf8.GetBytes(message.ToString()).Length);
+        }
+
+        public IRECEMessage getMessage()
+        {
+            byte[] bb = new byte[100];
+            int k = stm.Read(bb, 0, 100);
+
+            StringBuilder sb =  new StringBuilder();
+
+            for (int i = 0; i < k; i++)
+            {
+                sb.Append((Convert.ToChar(bb[i])));
+                Console.Write((Convert.ToChar(bb[i])));
+            }
+            return IRECEMessage.Deserialize(sb.ToString());
+        }
+                  
     }
 }

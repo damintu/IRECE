@@ -38,13 +38,6 @@ namespace IRECEClient.UC
                   System.Buffer.BlockCopy(mes.ToString().ToCharArray(), 0, bytes, 0, bytes.Length);
                   stm.Write(bytes, 0, bytes.Length);
 
-                  byte[] bb = new byte[100];
-                
-                  int k = stm.Read(bb, 0, 100);
-                                     
-
-                  for (int i = 0; i < k; i++)
-                      Console.Write(Convert.ToChar(bb[i]));
                 }
                 catch
                 {

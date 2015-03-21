@@ -11,7 +11,7 @@ using System.Net.Sockets;
 using System.IO;
 using IRECEClient.Service;
 using IRECEClient.Forms;
-
+using IRECE;
 namespace IRECEClient.UC
 {
     public partial class ConnectionControl : UserControl
@@ -30,14 +30,38 @@ namespace IRECEClient.UC
 
                 TcpClient tcpclnt = new TcpClient();
 
-                if (this.ipTextBox.Text != "" && this.portTextBox.Text != "")
+                if (this.ipTextBox.Text != "" && this.portTextBox.Text != "" && this.loginTextBox.Text != "")
                 {
 
                     tcpclnt.Connect(this.ipTextBox.Text, Convert.ToInt32(this.portTextBox.Text));
                     StreamService.Instance.Stm = tcpclnt.GetStream();
 
-                    this.ParentForm.DialogResult = DialogResult.OK;
-                    this.ParentForm.Close();
+                    IRECEMessage message = new IRECEMessage();
+
+                    message.Command = IRECE.IRECEMessage.USER;
+                    message.Text = this.loginTextBox.Text;
+                    message.Channel = IRECEChannel.SYSTEM_CH_SYSTEM;
+
+                    StreamService stm = StreamService.Instance;
+                    stm.SendMessage(message);
+                    message = stm.getMessage();
+                    //TODO FAIRE CHIER l'USER QUAND IL SUCE DES BITES
+                    if( message.Command == IRECEMessage.PASSWORD_REQUEST) 
+                    {
+                        message.Command = IRECEMessage.PASSWORD;
+                        message.Text = this.passwordTextBox.Text;
+                        stm.SendMessage(message);
+                        message = stm.getMessage();
+                        if (message.Command == IRECEMessage.ACK)
+                        {
+                            this.ParentForm.DialogResult = DialogResult.OK;
+                            this.ParentForm.Close();
+                        }
+                    }
+
+
+
+                    
                     
                 }
             }
