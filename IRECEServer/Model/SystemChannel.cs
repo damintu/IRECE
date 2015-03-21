@@ -21,6 +21,9 @@ namespace IRECEServer.Model
                 case IRECEMessage.PASSWORD:
                     connectUserWithPassword(c, m.Text);
                     break;
+                case IRECEMessage.CHANNELS_REQUEST:
+                    requestChannels(c);
+                    break;
                 default:
                     SendError(c, "Unknown command.");
                     break;
@@ -57,6 +60,7 @@ namespace IRECEServer.Model
                 user.Username = c.Username;
                 user.Password = password;
                 c.User = user;
+                addChannel(c, Channel.GetByName(Channel.SYSTEM_CH_MAIN));
                 SendACK(c);
                 return true;
             }
@@ -66,7 +70,45 @@ namespace IRECEServer.Model
                 return false;
             }
             c.User = user;
+            addChannel(c, Channel.GetByName(Channel.SYSTEM_CH_MAIN));
             SendACK(c);
+            return true;
+        }
+
+        private void addChannel(Client c, Channel ch)
+        {
+            ch.Clients.Add(c);
+            c.Channels.Add(ch);
+        }
+
+        private void requestChannels(Client c)
+        {
+            if (!checkConnected(c))
+            {
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
+            bool comma = false;
+            foreach (Channel ch in c.Channels)
+            {
+                if (comma)
+                {
+                    sb.Append(',');
+                }
+                sb.Append(ch.Name);
+                comma = true;
+            }
+            
+            SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.CHANNELS_RESPONSE, sb.ToString());
+        }
+
+        private bool checkConnected(Client c)
+        {
+            if (c.User == null)
+            {
+                SendError(c, "Connection needed.");
+                return false;
+            }
             return true;
         }
 

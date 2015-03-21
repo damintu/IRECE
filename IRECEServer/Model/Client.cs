@@ -16,6 +16,8 @@ namespace IRECEServer.Model
 
         public User User { get; set; }
 
+        public List<Channel> Channels { get; set; }
+
         public static List<Client> Clients { get; set; }
 
         public Client(Socket s)
@@ -36,14 +38,14 @@ namespace IRECEServer.Model
                     IRECEMessage mes = IRECEMessage.Deserialize(message);
                     if (null == mes.Channel)
                     {
-                        Channel.SystemChannel.SendError(this, "Aucun canal défini.");
+                        Channel.SystemChannel.SendError(this, "No channel given.");
                     }
                     else
                     {
                         current = Channel.GetByName(mes.Channel);
                         if (null == current)
                         {
-                            Channel.SystemChannel.SendError(this, "Le canal demandé n'existe pas.");
+                            Channel.SystemChannel.SendError(this, "Unknown channel.");
                         }
                         else
                         {
