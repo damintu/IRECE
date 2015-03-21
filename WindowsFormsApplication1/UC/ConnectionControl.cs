@@ -27,7 +27,6 @@ namespace IRECEClient.UC
         {
             try
             {
-
                 TcpClient tcpclnt = new TcpClient();
 
                 if (this.ipTextBox.Text != "" && this.portTextBox.Text != "" && this.loginTextBox.Text != "")
