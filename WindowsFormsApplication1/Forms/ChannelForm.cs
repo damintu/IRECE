@@ -23,15 +23,39 @@ namespace IRECEClient.Forms
             MainForm mainForm = new MainForm();
             if (mainForm.ShowDialog() == DialogResult.OK)
             {
-                channelMessage = stm.LastMessage;   
-                
+                channelMessage = stm.LastMessage;
+
+                List<string> channelList = new List<string>();
+                channelList = ParseChannelStringIntoListString(channelMessage.Text);
+
+                foreach(string channel in channelList){
+                  ListViewItem listChannelItems = new ListViewItem(channel);
+                  channelsListView.Items.Add(listChannelItems);
+                }
+                               
             }
-            
+                                
+                      
+          }
 
-          
-
-            
-          
+        private List<string> ParseChannelStringIntoListString(string channelString)
+        {
+            List<string> listChannel = new List<string>();
+            string[] subStrings = channelString.Split(';');
+            foreach (string st in subStrings){
+               listChannel.Add(st);
+            }
+                
+            return listChannel;
         }
+
+        private void channelsListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ChatForm chatForm = new ChatForm(channelsListView.SelectedItems[0].Text);
+            chatForm.Show();
+        }
+
+
+        
     }
 }

@@ -39,6 +39,7 @@
             this.channelsListView.Size = new System.Drawing.Size(246, 228);
             this.channelsListView.TabIndex = 0;
             this.channelsListView.UseCompatibleStateImageBehavior = false;
+            this.channelsListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.channelsListView_MouseDoubleClick);
             // 
             // channelLabel
             // 
