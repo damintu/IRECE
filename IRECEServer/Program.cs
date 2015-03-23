@@ -39,7 +39,7 @@ namespace IRECEServer
 
                 serverListener.Start();
 
-                Console.WriteLine("Server running at port " + SERVER_PORT + ".");
+                Console.WriteLine("Server running at "+serverIp.ToString() + ":" + SERVER_PORT + ".");
 
                 while (true) {
                     Socket s = serverListener.AcceptSocket();

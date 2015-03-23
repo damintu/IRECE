@@ -150,5 +150,48 @@ namespace IRECEServer.Model
         {
             SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.ERROR, text);
         }
+
+        public void Disconnect(Client c, string type = "normal")
+        {
+            string userText = "User " + c.User.Username;
+            string clientText = "Client " + c.Socket.RemoteEndPoint + " (username:"+c.User.Username+")";
+            if (type == "normal")
+            {
+                userText += " disconnected.";
+                clientText += " disconnected.";
+            }
+            else if (type == "timeout")
+            {
+                userText += " timed out.";
+                clientText += " timed out.";
+            }
+            else
+            {
+                userText += " disconnected (error).";
+                clientText += " disconnected (error).";
+            }
+            List<Client> toSendList = new List<Client>();
+            foreach (Channel chan in c.Channels)
+            {
+                foreach (Client cli in chan.Clients)
+                {
+                    if (cli == c)
+                    {
+                        continue;
+                    }
+                    if (toSendList.Contains(cli))
+                    {
+                        continue;
+                    }
+                    SendMessage(cli, chan, IRECEMessage.MESSAGE, userText);
+                    toSendList.Add(cli);
+                }
+            }
+            foreach (Client cli in toSendList)
+            {
+                SendMessage(cli, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.USER_DISCONNECT, c.User.Username);
+            }
+            Console.WriteLine(clientText);
+        }
     }
 }

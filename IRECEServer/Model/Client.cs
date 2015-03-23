@@ -56,7 +56,7 @@ namespace IRECEServer.Model
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception.ToString());
+                Channel.SystemChannel.Disconnect(this);
             }
         }
     }

@@ -19,6 +19,9 @@ namespace IRECE
         // needs to be sent to disconnect.
         public const string DISCONNECT = "DISCONNECTED";
 
+        // sent to the client when an user disconnect
+        public const string USER_DISCONNECT = "USER_DISCONNECT";
+
         // sent when an error occurs.
         public const string ERROR = "ERROR";
 
