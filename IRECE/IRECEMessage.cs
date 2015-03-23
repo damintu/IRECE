@@ -46,6 +46,12 @@ namespace IRECE
         // sends a client the channels list
         public const string CHANNELS_RESPONSE = "CHANNELS_RESPONSE";
 
+        // requests the users list
+        public const string USERLIST_REQUEST = "USERLIST_REQUEST";
+
+        // sends a client the users list
+        public const string USERLIST_RESPONSE = "USERLIST_RESPONSE";
+
         [DataMember]
         public string Command { get; set; }
         [DataMember]

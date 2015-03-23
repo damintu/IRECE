@@ -24,6 +24,9 @@ namespace IRECEServer.Model
                 case IRECEMessage.CHANNELS_REQUEST:
                     requestChannels(c);
                     break;
+                case IRECEMessage.USERLIST_REQUEST:
+                    requestUsers(c, m.Text);
+                    break;
                 default:
                     SendError(c, "Unknown command.");
                     break;
@@ -52,7 +55,7 @@ namespace IRECEServer.Model
                 SendError(c, "Username ?");
                 return false;
             }
-           
+
             User user = User.GetByUsername(c.Username);
             if (user == null)
             {
@@ -93,12 +96,43 @@ namespace IRECEServer.Model
             {
                 if (comma)
                 {
-                    sb.Append(',');
+                    sb.Append(';');
                 }
                 sb.Append(ch.Name);
                 comma = true;
             }
-            
+
+            SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.CHANNELS_RESPONSE, sb.ToString());
+        }
+
+        private void requestUsers(Client c, string channelName)
+        {
+            if (!checkConnected(c))
+            {
+                return;
+            }
+            Channel chan = Channel.GetByName(channelName);
+            // We send the same error if the channel does not exist or should not be accessed by this user ;
+            // we don't want the user to know that this channel exists if she's not supposed to access it
+            if (null == chan || !chan.Clients.Contains(c))
+            {
+                SendError(c, "Unknown channel.");
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.Append(chan.Name);
+            sb.Append(":");
+            bool comma = false;
+            foreach (Client cli in chan.Clients)
+            {
+                if (comma)
+                {
+                    sb.Append(';');
+                }
+                sb.Append(cli.User.Username);
+                comma = true;
+            }
+
             SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.CHANNELS_RESPONSE, sb.ToString());
         }
 
