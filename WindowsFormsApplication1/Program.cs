@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IRECEClient.Forms;
 
-namespace WindowsFormsApplication1
+namespace IRECEClient
 {
     static class Program
     {
@@ -16,7 +17,8 @@ namespace WindowsFormsApplication1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new IRCE());
+            Application.Run(new ChannelForm());
+
         }
     }
 }
