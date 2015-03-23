@@ -67,6 +67,7 @@
             this.envoyerButton.TabIndex = 3;
             this.envoyerButton.Text = "Envoyer";
             this.envoyerButton.UseVisualStyleBackColor = true;
+            this.envoyerButton.Click += new System.EventHandler(this.envoyerButton_Click);
             // 
             // channelLabel
             // 

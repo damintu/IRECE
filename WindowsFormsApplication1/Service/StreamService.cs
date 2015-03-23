@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using IRECE;
+using IRECEClient.Forms;
 
 namespace IRECEClient.Service
 {
-    class StreamService
+    class StreamService : EventArgs
     {
         private IRECEMessage lastMessage;
 
@@ -66,7 +67,30 @@ namespace IRECEClient.Service
             return lastMessage;
         }
 
+        public IRECEMessage handleRequest(List<IRECEMessage> list, String channelName, ChatForm form)
+        {
 
-                  
+            //TODO GROS SWITCH DES FAMILLES
+            while (true) { 
+                byte[] bb = new byte[100];
+                int k = stm.Read(bb, 0, 100);
+
+                StringBuilder sb = new StringBuilder();
+
+                for (int i = 0; i < k; i++)
+                {
+                    sb.Append((Convert.ToChar(bb[i])));
+                    Console.Write((Convert.ToChar(bb[i])));
+                }
+                list.Add(IRECEMessage.Deserialize(sb.ToString()));
+
+                form.updateMessages();
+                //TODO ENVOYER EVENT TO channelName windows.
+
+            }
+        }
+
+
+
     }
 }
