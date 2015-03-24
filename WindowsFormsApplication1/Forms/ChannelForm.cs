@@ -51,8 +51,20 @@ namespace IRECEClient.Forms
 
         private void channelsListView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ChatForm chatForm = new ChatForm(channelsListView.SelectedItems[0].Text);
-            chatForm.Show();
+            string channel = channelsListView.SelectedItems[0].Text;
+           
+            channelMessage.Command = IRECEMessage.USERLIST_REQUEST;
+            channelMessage.Text = channel;
+            stm.SendMessage(channelMessage);
+            channelMessage = stm.getMessage();
+
+            if (channelMessage.Command == IRECEMessage.USERLIST_RESPONSE)
+            {
+                ChatForm chatForm = new ChatForm(channel);
+                chatForm.Show();
+            }
+
+           
         }
 
 

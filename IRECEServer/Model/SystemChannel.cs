@@ -133,7 +133,7 @@ namespace IRECEServer.Model
                 comma = true;
             }
 
-            SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.CHANNELS_RESPONSE, sb.ToString());
+            SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.USERLIST_RESPONSE, sb.ToString());
         }
 
         private bool checkConnected(Client c)
