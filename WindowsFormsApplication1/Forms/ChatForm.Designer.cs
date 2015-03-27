@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.messagesListBox = new System.Windows.Forms.ListBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.usersListView = new System.Windows.Forms.ListView();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.envoyerButton = new System.Windows.Forms.Button();
-            this.channelLabel = new System.Windows.Forms.Label();
             this.listUserCoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -44,13 +43,13 @@
             this.messagesListBox.Size = new System.Drawing.Size(467, 199);
             this.messagesListBox.TabIndex = 0;
             // 
-            // listView1
+            // usersListView
             // 
-            this.listView1.Location = new System.Drawing.Point(496, 49);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(186, 199);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.usersListView.Location = new System.Drawing.Point(496, 49);
+            this.usersListView.Name = "usersListView";
+            this.usersListView.Size = new System.Drawing.Size(186, 199);
+            this.usersListView.TabIndex = 1;
+            this.usersListView.UseCompatibleStateImageBehavior = false;
             // 
             // messageTextBox
             // 
@@ -68,14 +67,6 @@
             this.envoyerButton.Text = "Envoyer";
             this.envoyerButton.UseVisualStyleBackColor = true;
             // 
-            // channelLabel
-            // 
-            this.channelLabel.AutoSize = true;
-            this.channelLabel.Location = new System.Drawing.Point(279, 9);
-            this.channelLabel.Name = "channelLabel";
-            this.channelLabel.Size = new System.Drawing.Size(0, 13);
-            this.channelLabel.TabIndex = 4;
-            // 
             // listUserCoLabel
             // 
             this.listUserCoLabel.AutoSize = true;
@@ -91,13 +82,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 339);
             this.Controls.Add(this.listUserCoLabel);
-            this.Controls.Add(this.channelLabel);
             this.Controls.Add(this.envoyerButton);
             this.Controls.Add(this.messageTextBox);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.usersListView);
             this.Controls.Add(this.messagesListBox);
             this.Name = "ChatForm";
-            this.Text = "ChatForm";
+            this.Text = "Chat en cours";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,10 +96,9 @@
         #endregion
 
         private System.Windows.Forms.ListBox messagesListBox;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView usersListView;
         private System.Windows.Forms.TextBox messageTextBox;
         private System.Windows.Forms.Button envoyerButton;
-        private System.Windows.Forms.Label channelLabel;
         private System.Windows.Forms.Label listUserCoLabel;
     }
 }

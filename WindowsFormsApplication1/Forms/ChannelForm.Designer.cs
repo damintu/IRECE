@@ -29,44 +29,44 @@
         private void InitializeComponent()
         {
             this.channelsListView = new System.Windows.Forms.ListView();
-            this.channelLabel = new System.Windows.Forms.Label();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // channelsListView
             // 
-            this.channelsListView.Location = new System.Drawing.Point(12, 22);
+            this.channelsListView.Location = new System.Drawing.Point(12, 12);
             this.channelsListView.Name = "channelsListView";
             this.channelsListView.Size = new System.Drawing.Size(246, 228);
             this.channelsListView.TabIndex = 0;
             this.channelsListView.UseCompatibleStateImageBehavior = false;
             this.channelsListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.channelsListView_MouseDoubleClick);
             // 
-            // channelLabel
+            // refreshButton
             // 
-            this.channelLabel.AutoSize = true;
-            this.channelLabel.Location = new System.Drawing.Point(13, 3);
-            this.channelLabel.Name = "channelLabel";
-            this.channelLabel.Size = new System.Drawing.Size(95, 13);
-            this.channelLabel.TabIndex = 1;
-            this.channelLabel.Text = "Liste des channels";
+            this.refreshButton.Location = new System.Drawing.Point(13, 247);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(75, 23);
+            this.refreshButton.TabIndex = 1;
+            this.refreshButton.Text = "Rafraichir";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // ChannelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.channelLabel);
+            this.ClientSize = new System.Drawing.Size(284, 283);
+            this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.channelsListView);
             this.Name = "ChannelForm";
-            this.Text = "ChannelForm";
+            this.Text = "Liste des channels";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.ListView channelsListView;
-        private System.Windows.Forms.Label channelLabel;
+        private System.Windows.Forms.Button refreshButton;
     }
 }

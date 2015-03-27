@@ -19,63 +19,30 @@ namespace IRECEClient.UC
         public ConnectionControl()
         {
             InitializeComponent();
-            this.ipTextBox.Text = "192.168.0.23";
-            this.portTextBox.Text = "5000";
+            this.ipTextBox.Text = IRECECore.LocalIPAddress();
+            this.portTextBox.Text = IRECECore.SERVER_PORT.ToString();
         }
 
         private void validateBtn_Click(object sender, EventArgs e)
         {
-            try
+            if (ipTextBox.Text != "" && portTextBox.Text != "" && loginTextBox.Text != "" && passwordTextBox.Text != "")
             {
-                TcpClient tcpclnt = new TcpClient();
-
-                if (this.ipTextBox.Text != "" && this.portTextBox.Text != "" && this.loginTextBox.Text != "")
+                StreamService service = StreamService.Instance;
+                bool step;
+                step = service.InitiateConnection(ipTextBox.Text, portTextBox.Text);
+                if (!step)
                 {
-
-                    tcpclnt.Connect(this.ipTextBox.Text, Convert.ToInt32(this.portTextBox.Text));
-                    StreamService.Instance.Stm = tcpclnt.GetStream();
-
-                    IRECEMessage message = new IRECEMessage();
-
-                    message.Command = IRECE.IRECEMessage.USER;
-                    message.Text = this.loginTextBox.Text;
-                    message.Channel = IRECEChannel.SYSTEM_CH_SYSTEM;
-
-                    StreamService stm = StreamService.Instance;
-                    stm.SendMessage(message);
-                    message = stm.getMessage();
-                    //TODO FAIRE CHIER l'USER QUAND IL SUCE DES BITES
-                    if( message.Command == IRECEMessage.PASSWORD_REQUEST) 
-                    {
-                        message.Command = IRECEMessage.PASSWORD;
-                        message.Text = this.passwordTextBox.Text;
-                        stm.SendMessage(message);
-                        message = stm.getMessage();
-                        if (message.Command == IRECEMessage.ACK)
-                        {
-                            message.Command = IRECEMessage.CHANNELS_REQUEST;
-                            message.Text = "";
-                            stm.SendMessage(message);
-                            message = stm.getMessage();
-
-                            if (message.Command == IRECEMessage.CHANNELS_RESPONSE)
-                            {
-                                this.ParentForm.DialogResult = DialogResult.OK;
-                                this.ParentForm.Close();
-                            }
-                            
-                        }
-                    }
-
-
-
-                    
-                    
+                    errorLabel.Text = "Impossible de contacter le serveur.";
+                    return;
                 }
-            }
-            catch (Exception exep)
-            {
-                Console.WriteLine(exep.ToString());
+                step = service.ConnectUser(loginTextBox.Text, passwordTextBox.Text);
+                if (!step)
+                {
+                    errorLabel.Text = "Authentification impossible.";
+                    return;
+                }
+                ParentForm.DialogResult = DialogResult.OK;
+                ParentForm.Close();
             }
         }
         

@@ -37,6 +37,7 @@
             this.loginTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ipTextBox
@@ -73,7 +74,7 @@
             // 
             // validateBtn
             // 
-            this.validateBtn.Location = new System.Drawing.Point(134, 149);
+            this.validateBtn.Location = new System.Drawing.Point(134, 137);
             this.validateBtn.Name = "validateBtn";
             this.validateBtn.Size = new System.Drawing.Size(75, 23);
             this.validateBtn.TabIndex = 4;
@@ -113,10 +114,24 @@
             this.passwordLabel.TabIndex = 8;
             this.passwordLabel.Text = "Password :";
             // 
+            // errorLabel
+            // 
+            this.errorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(3, 181);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(37, 13);
+            this.errorLabel.TabIndex = 10;
+            this.errorLabel.Text = "          ";
+            this.errorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ConnectionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.loginTextBox);
@@ -144,5 +159,6 @@
         private System.Windows.Forms.TextBox loginTextBox;
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Label passwordLabel;
+        private System.Windows.Forms.Label errorLabel;
     }
 }

@@ -13,8 +13,6 @@ namespace IRECEServer
 {
     class Program
     {
-        const int SERVER_PORT = 5000;
-
         static void Main(string[] args)
         {
             Channel.Channels = new List<Channel>();
@@ -34,12 +32,12 @@ namespace IRECEServer
 
             try
             {
-                IPAddress serverIp = IPAddress.Parse(LocalIPAddress());
-                TcpListener serverListener = new TcpListener(serverIp, SERVER_PORT);
+                IPAddress serverIp = IPAddress.Parse(IRECECore.LocalIPAddress());
+                TcpListener serverListener = new TcpListener(serverIp, IRECECore.SERVER_PORT);
 
                 serverListener.Start();
 
-                Console.WriteLine("Server running at "+serverIp.ToString() + ":" + SERVER_PORT + ".");
+                Console.WriteLine("Server running at "+serverIp.ToString() + ":" + IRECECore.SERVER_PORT + ".");
 
                 while (true) {
                     Socket s = serverListener.AcceptSocket();
@@ -58,22 +56,6 @@ namespace IRECEServer
                 Console.WriteLine("Shutting down.");
                 // TODO Clean all connections.
             }   
-        }
-
-        public static string LocalIPAddress()
-        {
-            IPHostEntry host;
-            string localIP = "";
-            host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    localIP = ip.ToString();
-                    break;
-                }
-            }
-            return localIP;
         }
     }
 }

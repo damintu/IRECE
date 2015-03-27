@@ -14,60 +14,50 @@ namespace IRECEClient.Forms
 {
     public partial class ChannelForm : Form
     {
-        private IRECEMessage channelMessage;
         StreamService stm = StreamService.Instance;
+        private List<ChatForm> openChatForms = new List<ChatForm>();
 
         public ChannelForm()
         {
             InitializeComponent();
-            MainForm mainForm = new MainForm();
-            if (mainForm.ShowDialog() == DialogResult.OK)
+            ConnectionForm connectionForm = new ConnectionForm();
+            if (connectionForm.ShowDialog() == DialogResult.OK)
             {
-                channelMessage = stm.LastMessage;
-
-                List<string> channelList = new List<string>();
-                channelList = ParseChannelStringIntoListString(channelMessage.Text);
-
-                foreach(string channel in channelList){
-                  ListViewItem listChannelItems = new ListViewItem(channel);
-                  channelsListView.Items.Add(listChannelItems);
-                }
-                               
+                RefreshChannels();
             }
-                                
-                      
-          }
+        }
 
-        private List<string> ParseChannelStringIntoListString(string channelString)
+        public void RefreshChannels()
         {
-            List<string> listChannel = new List<string>();
-            string[] subStrings = channelString.Split(';');
-            foreach (string st in subStrings){
-               listChannel.Add(st);
+            channelsListView.Items.Clear();
+            List<string> listChannel = StreamService.Instance.GetChannels();
+            foreach (string channel in listChannel)
+            {
+                ListViewItem listChannelItems = new ListViewItem(channel);
+                channelsListView.Items.Add(listChannelItems);
             }
-                
-            return listChannel;
         }
 
         private void channelsListView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            string channel = channelsListView.SelectedItems[0].Text;
-           
-            channelMessage.Command = IRECEMessage.USERLIST_REQUEST;
-            channelMessage.Text = channel;
-            stm.SendMessage(channelMessage);
-            channelMessage = stm.getMessage();
-
-            if (channelMessage.Command == IRECEMessage.USERLIST_RESPONSE)
+            string askedChannel = channelsListView.SelectedItems[0].Text;
+            foreach (ChatForm form in openChatForms)
             {
-                ChatForm chatForm = new ChatForm(channel);
-                chatForm.Show();
+                if (form.channelName == askedChannel)
+                {
+                    form.Focus();
+                    form.WindowState = FormWindowState.Normal;
+                    return;
+                }
             }
-
-           
+            ChatForm chatForm = new ChatForm(askedChannel);
+            openChatForms.Add(chatForm);
+            chatForm.Show();
         }
 
-
-        
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshChannels();
+        }
     }
 }

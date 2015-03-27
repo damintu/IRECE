@@ -60,7 +60,15 @@ namespace IRECE
             message.Command = command;
             message.Text = text;
             UTF8Encoding utf8 = new UTF8Encoding();
-            c.Socket.Send(utf8.GetBytes(message.ToString()));
+            try
+            {
+                c.Socket.Send(utf8.GetBytes(message.ToString()));
+            }
+            catch (Exception e)
+            {
+                // Socket is closed during the transmission
+                Console.WriteLine(e.ToString());
+            }
         }
     }
 }

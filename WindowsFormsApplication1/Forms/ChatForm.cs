@@ -14,9 +14,7 @@ namespace IRECEClient.Forms
 {
     public partial class ChatForm : Form
     {
-
-        private IRECEMessage lastMessage;
-        private string channelName;
+        public string channelName;
         StreamService stm = StreamService.Instance;
 
         public ChatForm()
@@ -24,16 +22,23 @@ namespace IRECEClient.Forms
             InitializeComponent();
         }
 
-        public ChatForm(string channelName)
+        public ChatForm(string channel)
         {
             InitializeComponent();
-
-            this.channelName = channelName;
-            channelLabel.Text = channelName;
-           // lastMessage = stm.LastMessage;
+            channelName = channel;
+            Text = Text + " : " + channelName;
+            RefreshUsers();
         }
 
-
-
+        public void RefreshUsers()
+        {
+            usersListView.Items.Clear();
+            List<string> listUsers = StreamService.Instance.GetUsers(channelName);
+            foreach (string user in listUsers)
+            {
+                ListViewItem listUserItem = new ListViewItem(user);
+                usersListView.Items.Add(listUserItem);
+            }
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace IRECEServer.Model
                     }
                 }
             }
-            catch (Exception exception)
+            catch
             {
                 Channel.SystemChannel.Disconnect(this);
             }
