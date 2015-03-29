@@ -27,7 +27,7 @@ namespace IRECEServer.Model
 
         public void Run()
         {
-            byte[] b = new byte[2048];
+            byte[] b = new byte[200000];
             int k;
             try
             {
