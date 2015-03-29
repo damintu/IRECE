@@ -84,7 +84,7 @@
             // 
             // userlistTimer
             // 
-            this.userlistTimer.Interval = 500;
+            this.userlistTimer.Interval = 1500;
             this.userlistTimer.Tick += new System.EventHandler(this.userlistTimer_Tick);
             // 
             // ChatForm

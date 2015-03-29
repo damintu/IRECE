@@ -20,11 +20,6 @@ namespace IRECEClient.Forms
         public ChannelForm()
         {
             InitializeComponent();
-            ConnectionForm connectionForm = new ConnectionForm();
-            if (connectionForm.ShowDialog() == DialogResult.OK)
-            {
-                RefreshChannels();
-            }
         }
 
         public void RefreshChannels()
@@ -58,6 +53,19 @@ namespace IRECEClient.Forms
         private void refreshButton_Click(object sender, EventArgs e)
         {
             RefreshChannels();
+        }
+
+        private void ChannelForm_Load(object sender, EventArgs e)
+        {
+            ConnectionForm connectionForm = new ConnectionForm();
+            if (connectionForm.ShowDialog() == DialogResult.OK)
+            {
+                RefreshChannels();
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }

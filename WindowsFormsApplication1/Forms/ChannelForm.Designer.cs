@@ -60,6 +60,7 @@
             this.Controls.Add(this.channelsListView);
             this.Name = "ChannelForm";
             this.Text = "Liste des channels";
+            this.Load += new System.EventHandler(this.ChannelForm_Load);
             this.ResumeLayout(false);
 
         }
