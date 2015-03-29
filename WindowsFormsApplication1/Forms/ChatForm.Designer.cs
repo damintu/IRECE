@@ -31,7 +31,7 @@
             this.messagesListBox = new System.Windows.Forms.ListBox();
             this.usersListView = new System.Windows.Forms.ListView();
             this.messageTextBox = new System.Windows.Forms.TextBox();
-            this.envoyerButton = new System.Windows.Forms.Button();
+            this.sendButton = new System.Windows.Forms.Button();
             this.listUserCoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -58,14 +58,15 @@
             this.messageTextBox.Size = new System.Drawing.Size(561, 20);
             this.messageTextBox.TabIndex = 2;
             // 
-            // envoyerButton
+            // sendButton
             // 
-            this.envoyerButton.Location = new System.Drawing.Point(580, 280);
-            this.envoyerButton.Name = "envoyerButton";
-            this.envoyerButton.Size = new System.Drawing.Size(102, 23);
-            this.envoyerButton.TabIndex = 3;
-            this.envoyerButton.Text = "Envoyer";
-            this.envoyerButton.UseVisualStyleBackColor = true;
+            this.sendButton.Location = new System.Drawing.Point(580, 280);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(102, 23);
+            this.sendButton.TabIndex = 3;
+            this.sendButton.Text = "Envoyer";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
             // listUserCoLabel
             // 
@@ -82,7 +83,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 339);
             this.Controls.Add(this.listUserCoLabel);
-            this.Controls.Add(this.envoyerButton);
+            this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.usersListView);
             this.Controls.Add(this.messagesListBox);
@@ -98,7 +99,7 @@
         private System.Windows.Forms.ListBox messagesListBox;
         private System.Windows.Forms.ListView usersListView;
         private System.Windows.Forms.TextBox messageTextBox;
-        private System.Windows.Forms.Button envoyerButton;
+        private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Label listUserCoLabel;
     }
 }

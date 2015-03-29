@@ -13,9 +13,11 @@ namespace IRECEClient.Service
     class StreamService
     {
         private bool updatedChannels = false;
+        public string User;
         public List<string> Channels;
         private Dictionary<string, bool> updatedUsers = new Dictionary<string, bool>();
         public Dictionary<string, List<string>> UsersByChannel = new Dictionary<string, List<string>>();
+        public Dictionary<string, List<IRECEMessage>> MessagesByChannel = new Dictionary<string, List<IRECEMessage>>();
 
         public bool Connected
         {
@@ -64,7 +66,6 @@ namespace IRECEClient.Service
             for (int i = 0; i < k; i++)
             {
                 sb.Append((Convert.ToChar(bb[i])));
-                Console.Write((Convert.ToChar(bb[i])));
             }
             return IRECEMessage.Deserialize(sb.ToString());
         }
@@ -75,17 +76,17 @@ namespace IRECEClient.Service
             while (true)
             {
                 message = getMessage();
-                if (message.Channel == IRECEChannel.SYSTEM_CH_SYSTEM)
+                switch (message.Command)
                 {
-                    switch (message.Command)
-                    {
-                        case IRECEMessage.CHANNELS_RESPONSE:
-                            UpdateChannels(message);
-                            break;
-                        case IRECEMessage.USERLIST_RESPONSE:
-                            UpdateUsers(message);
-                            break;
-                    }
+                    case IRECEMessage.CHANNELS_RESPONSE:
+                        UpdateChannels(message);
+                        break;
+                    case IRECEMessage.USERLIST_RESPONSE:
+                        UpdateUsers(message);
+                        break;
+                    case IRECEMessage.MESSAGE:
+                        ManageTextMessage(message);
+                        break;
                 }
             }
         }
@@ -140,6 +141,7 @@ namespace IRECEClient.Service
             Thread receptionThread = new Thread(Receive);
             receptionThread.IsBackground = true;
             receptionThread.Start();
+            User = username;
             return true;
         }
 
@@ -153,6 +155,7 @@ namespace IRECEClient.Service
             IRECEMessage message = new IRECEMessage();
             message.Command = IRECEMessage.CHANNELS_REQUEST;
             message.Channel = IRECEChannel.SYSTEM_CH_SYSTEM;
+            message.User = User;
             message.Text = "";
             SendMessage(message);
             while (updatedChannels == false)
@@ -191,6 +194,7 @@ namespace IRECEClient.Service
             updatedUsers[channel] = false;
             IRECEMessage message = new IRECEMessage();
             message.Command = IRECEMessage.USERLIST_REQUEST;
+            message.User = User;
             message.Channel = IRECEChannel.SYSTEM_CH_SYSTEM;
             message.Text = channel;
             SendMessage(message);
@@ -221,6 +225,28 @@ namespace IRECEClient.Service
                 UsersByChannel[channel].Add(st);
             }
             updatedUsers[channel] = true;
+        }
+
+        public void SendMessageToChannel(string text, string channel)
+        {
+            IRECEMessage message = new IRECEMessage();
+            message.Channel = channel;
+            message.Command = IRECEMessage.MESSAGE;
+            message.User = User;
+            message.Text = text;
+            SendMessage(message);
+            return;
+        }
+
+        private void ManageTextMessage(IRECEMessage message)
+        {
+            Console.WriteLine("Client");
+            Console.WriteLine(message.ToString());
+            if (!MessagesByChannel.ContainsKey(message.Channel))
+            {
+                MessagesByChannel[message.Channel] = new List<IRECEMessage>();
+            }
+            MessagesByChannel[message.Channel].Add(message);
         }
     }
 }

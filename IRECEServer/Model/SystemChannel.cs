@@ -74,7 +74,6 @@ namespace IRECEServer.Model
             }
             c.User = user;
             addChannel(c, Channel.GetByName(Channel.SYSTEM_CH_MAIN));
-            SendACK(c);
             return true;
         }
 
@@ -183,7 +182,7 @@ namespace IRECEServer.Model
                     {
                         continue;
                     }
-                    SendMessage(cli, chan, IRECEMessage.MESSAGE, userText);
+                    SendMessage(cli, chan, IRECEMessage.MESSAGE, userText, c.User.Username);
                     toSendList.Add(cli);
                 }
             }

@@ -12,9 +12,10 @@ namespace IRECE
     [DataContract]
     public class IRECEMessage
     {
-
         // needs to be set as type to send a message in a channel
         public const string MESSAGE = "MESSAGE";
+        // needs to be set as type to send an image in a channel
+        public const string IMAGE = "IMAGE";
 
         // needs to be sent to disconnect.
         public const string DISCONNECT = "DISCONNECTED";
@@ -61,6 +62,8 @@ namespace IRECE
         public string Channel { get; set; }
         [DataMember]
         public string Text { get; set; }
+        [DataMember]
+        public string User { get; set; }
 
         public override string ToString()
         {

@@ -36,11 +36,10 @@ namespace IRECE
 
         public virtual void Manage(Client c, IRECEMessage m)
         {
-            SendACK(c);
             UTF8Encoding utf8 = new UTF8Encoding();
             foreach (Client cli in Clients)
             {
-                cli.Socket.Send(utf8.GetBytes(m.ToString()));
+                SendMessage(cli, m);
             }
         }
 
@@ -49,19 +48,25 @@ namespace IRECE
             SendMessage(c, Channel.SYSTEM_CH_SYSTEM, IRECEMessage.ACK, "");
         }
 
-        public void SendMessage(Client c, Channel channel, String command, String text)
+        public void SendMessage(Client c, Channel channel, String command, String text, String user = null)
         {
-            SendMessage(c, channel.Name, command, text);
+            SendMessage(c, channel.Name, command, text, user);
         }
-        public void SendMessage(Client c, String channel, String command, String text)
+        public void SendMessage(Client c, String channel, String command, String text, String user = null)
         {
             IRECEMessage message = new IRECEMessage();
             message.Channel = channel;
             message.Command = command;
             message.Text = text;
+            message.User = user;
+            SendMessage(c, message);
+        }
+        public void SendMessage(Client c, IRECEMessage message)
+        {
             UTF8Encoding utf8 = new UTF8Encoding();
             try
             {
+                Console.WriteLine(message);
                 c.Socket.Send(utf8.GetBytes(message.ToString()));
             }
             catch (Exception e)

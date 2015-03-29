@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IRECE;
 using IRECEClient.Service;
+using System.Threading;
 
 namespace IRECEClient.Forms
 {
@@ -28,6 +29,9 @@ namespace IRECEClient.Forms
             channelName = channel;
             Text = Text + " : " + channelName;
             RefreshUsers();
+            Thread receptionThread = new Thread(Receive);
+            receptionThread.IsBackground = true;
+            receptionThread.Start();
         }
 
         public void RefreshUsers()
@@ -38,6 +42,27 @@ namespace IRECEClient.Forms
             {
                 ListViewItem listUserItem = new ListViewItem(user);
                 usersListView.Items.Add(listUserItem);
+            }
+        }
+
+        private void sendButton_Click(object sender, EventArgs e)
+        {
+            stm.SendMessageToChannel(messageTextBox.Text, channelName);
+        }
+
+        private void Receive()
+        {
+            while (true)
+            {
+                if (stm.MessagesByChannel.ContainsKey(channelName) && stm.MessagesByChannel[channelName].Count > 0)
+                {
+                    messagesListBox.Invoke(new Action(() => {
+                        messagesListBox.Items.Add(stm.MessagesByChannel[channelName][0].User + " : " + stm.MessagesByChannel[channelName][0].Text);
+                    }
+                    ));
+                    
+                    stm.MessagesByChannel[channelName].RemoveAt(0);
+                }
             }
         }
     }
