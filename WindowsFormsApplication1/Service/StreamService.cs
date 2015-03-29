@@ -59,8 +59,8 @@ namespace IRECEClient.Service
 
         public IRECEMessage getMessage()
         {
-            byte[] bb = new byte[1024];
-            int k = stm.Read(bb, 0, 1024);
+            byte[] bb = new byte[200000];
+            int k = stm.Read(bb, 0, 200000);
 
             StringBuilder sb =  new StringBuilder();
 
@@ -91,6 +91,7 @@ namespace IRECEClient.Service
                     case IRECEMessage.MESSAGE:
                     case IRECEMessage.USER_DISCONNECT:
                     case IRECEMessage.USER_JOIN:
+                    case IRECEMessage.IMAGE:
                         ManageTextMessage(message);
                         break;
                 }
@@ -238,6 +239,17 @@ namespace IRECEClient.Service
             IRECEMessage message = new IRECEMessage();
             message.Channel = channel;
             message.Command = IRECEMessage.MESSAGE;
+            message.User = User;
+            message.Text = text;
+            SendMessage(message);
+            return;
+        }
+
+        public void SendImageToChannel(string text, string channel)
+        {
+            IRECEMessage message = new IRECEMessage();
+            message.Channel = channel;
+            message.Command = IRECEMessage.IMAGE;
             message.User = User;
             message.Text = text;
             SendMessage(message);

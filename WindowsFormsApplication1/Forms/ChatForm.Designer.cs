@@ -53,6 +53,7 @@
             this.messageTextBox.Name = "messageTextBox";
             this.messageTextBox.Size = new System.Drawing.Size(561, 20);
             this.messageTextBox.TabIndex = 2;
+            this.messageTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.messageTextBox_KeyPress);
             // 
             // sendButton
             // 
@@ -95,6 +96,7 @@
             // 
             // ChatForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 339);
@@ -107,6 +109,8 @@
             this.Name = "ChatForm";
             this.Text = "Chat en cours";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatForm_FormClosed);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ChatForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.ChatForm_DragEnter);
             this.ResumeLayout(false);
             this.PerformLayout();
 
