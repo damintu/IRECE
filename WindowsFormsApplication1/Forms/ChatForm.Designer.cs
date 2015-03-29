@@ -34,6 +34,7 @@
             this.listUserCoLabel = new System.Windows.Forms.Label();
             this.messageList = new System.Windows.Forms.RichTextBox();
             this.refreshUsersButton = new System.Windows.Forms.Button();
+            this.dragNDropLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usersListView
@@ -76,10 +77,10 @@
             // 
             // messageList
             // 
-            this.messageList.Location = new System.Drawing.Point(13, 13);
+            this.messageList.Location = new System.Drawing.Point(13, 32);
             this.messageList.Name = "messageList";
             this.messageList.ReadOnly = true;
-            this.messageList.Size = new System.Drawing.Size(477, 264);
+            this.messageList.Size = new System.Drawing.Size(477, 245);
             this.messageList.TabIndex = 6;
             this.messageList.Text = "";
             this.messageList.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.messageList_LinkClicked);
@@ -94,12 +95,22 @@
             this.refreshUsersButton.UseVisualStyleBackColor = true;
             this.refreshUsersButton.Click += new System.EventHandler(this.refreshUsersButton_Click);
             // 
+            // dragNDropLabel
+            // 
+            this.dragNDropLabel.AutoSize = true;
+            this.dragNDropLabel.Location = new System.Drawing.Point(13, 13);
+            this.dragNDropLabel.Name = "dragNDropLabel";
+            this.dragNDropLabel.Size = new System.Drawing.Size(343, 13);
+            this.dragNDropLabel.TabIndex = 8;
+            this.dragNDropLabel.Text = "Utilisez le drag\'n\'drop d\'une image pour l\'envoyer à tous les participants.";
+            // 
             // ChatForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 339);
+            this.ClientSize = new System.Drawing.Size(694, 314);
+            this.Controls.Add(this.dragNDropLabel);
             this.Controls.Add(this.refreshUsersButton);
             this.Controls.Add(this.messageList);
             this.Controls.Add(this.listUserCoLabel);
@@ -124,5 +135,6 @@
         private System.Windows.Forms.Label listUserCoLabel;
         private System.Windows.Forms.RichTextBox messageList;
         private System.Windows.Forms.Button refreshUsersButton;
+        private System.Windows.Forms.Label dragNDropLabel;
     }
 }

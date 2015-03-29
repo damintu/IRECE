@@ -20,6 +20,7 @@ namespace IRECEClient.Forms
     {
         public string channelName;
         public string Type = IRECEChannel.TYPE_PUBLIC;
+
         StreamService stm = StreamService.Instance;
 
         public ChatForm()
@@ -60,28 +61,9 @@ namespace IRECEClient.Forms
         {
             while (true)
             {
-                Control control = messageList.GetNextControl(messageList, true);
-                
-
                 if (stm.MessagesByChannel.ContainsKey(channelName) && stm.MessagesByChannel[channelName].Count > 0)
                 {
                     messageList.Invoke(new Action(() => {
-
-                        if (control != null)
-                        {
-                            if (control.GetType() == typeof(PictureBox))
-                            {
-                                Point p = control.Location;
-                                p.Y = p.Y - 10;
-                                if (p.Y < 0)
-                                {
-                                    control.Dispose();
-                                }
-                                control.Location = p;
-                            }
-
-                        }
-
                         if (stm.MessagesByChannel[channelName][0].Command == IRECEMessage.USER_DISCONNECT
                             || stm.MessagesByChannel[channelName][0].Command == IRECEMessage.USER_JOIN)
                         {
@@ -90,21 +72,9 @@ namespace IRECEClient.Forms
                         }
                         if (stm.MessagesByChannel[channelName][0].Command == IRECEMessage.IMAGE)
                         {
-                            
                             Image image = IRECEImageHelper.ImageFromBase64String(stm.MessagesByChannel[channelName][0].Text);
-                            PictureBox pb = new PictureBox();
-                            pb.Image = image;
-                            int position = messageList.GetFirstCharIndexOfCurrentLine();
-                            Point p = messageList.GetPositionFromCharIndex(position);
-                            string user = stm.MessagesByChannel[channelName][0].User;
-                            Size sizeUser = TextRenderer.MeasureText(user, new Font("Segoe UI", 11, FontStyle.Regular, GraphicsUnit.Point));
-                            p.X = p.X + sizeUser.Width;
-                            pb.Location = p;
-                                                        
-                            messageList.Controls.Add(pb);
-                            messageList.AppendText(user + " : \n\n\n");
-                           
-
+                            PictureForm form = new PictureForm(image, stm.MessagesByChannel[channelName][0].User);
+                            form.Show();
                         }
                         else
                         {
@@ -116,11 +86,7 @@ namespace IRECEClient.Forms
                     ));
                     
                     stm.MessagesByChannel[channelName].RemoveAt(0);
-
-                   
                 }
-
-
             }
         }
 
@@ -162,7 +128,7 @@ namespace IRECEClient.Forms
 
         private void ChatForm_DragDrop(object sender, DragEventArgs e)
         {
-            string[] imageFile = (string[]) e.Data.GetData(DataFormats.FileDrop, false);
+            string[] imageFile = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             Image image = null;
             try
             {
@@ -172,22 +138,21 @@ namespace IRECEClient.Forms
             {
                 MessageBox.Show("Ceci n'est pas une image !");
             }
-            
+
             if (image != null)
             {
-               
-               FileInfo fileInfo = new FileInfo(imageFile[0]);
-             if(fileInfo.Length > 100000){
-                 MessageBox.Show("L'image à une taille supérieur à 100 Ko");
-             }else{
-                 string imageBase64 = IRECEImageHelper.ImageToBase64String(image);
-                stm.SendImageToChannel(imageBase64, channelName);
-             }
 
-
+                FileInfo fileInfo = new FileInfo(imageFile[0]);
+                if (fileInfo.Length > 100000)
+                {
+                    MessageBox.Show("L'image à une taille supérieur à 100 Ko");
+                }
+                else
+                {
+                    string imageBase64 = IRECEImageHelper.ImageToBase64String(image);
+                    stm.SendImageToChannel(imageBase64, channelName);
+                }
             }
-           
-
         }
 
         private void messageTextBox_KeyPress(object sender, KeyPressEventArgs e)

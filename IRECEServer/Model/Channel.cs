@@ -76,7 +76,6 @@ namespace IRECE
             UTF8Encoding utf8 = new UTF8Encoding();
             try
             {
-                Console.WriteLine(message);
                 c.Socket.Send(utf8.GetBytes(message.ToString()));
             }
             catch (Exception e)
