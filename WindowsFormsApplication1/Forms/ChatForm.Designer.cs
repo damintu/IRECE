@@ -28,28 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.messagesListBox = new System.Windows.Forms.ListBox();
             this.usersListView = new System.Windows.Forms.ListView();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.listUserCoLabel = new System.Windows.Forms.Label();
+            this.messageList = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // messagesListBox
-            // 
-            this.messagesListBox.FormattingEnabled = true;
-            this.messagesListBox.Location = new System.Drawing.Point(13, 49);
-            this.messagesListBox.Name = "messagesListBox";
-            this.messagesListBox.Size = new System.Drawing.Size(467, 199);
-            this.messagesListBox.TabIndex = 0;
             // 
             // usersListView
             // 
-            this.usersListView.Location = new System.Drawing.Point(496, 49);
+            this.usersListView.Location = new System.Drawing.Point(496, 32);
             this.usersListView.Name = "usersListView";
-            this.usersListView.Size = new System.Drawing.Size(186, 199);
+            this.usersListView.Size = new System.Drawing.Size(186, 242);
             this.usersListView.TabIndex = 1;
             this.usersListView.UseCompatibleStateImageBehavior = false;
+            this.usersListView.View = System.Windows.Forms.View.List;
             // 
             // messageTextBox
             // 
@@ -71,22 +64,32 @@
             // listUserCoLabel
             // 
             this.listUserCoLabel.AutoSize = true;
-            this.listUserCoLabel.Location = new System.Drawing.Point(496, 30);
+            this.listUserCoLabel.Location = new System.Drawing.Point(496, 16);
             this.listUserCoLabel.Name = "listUserCoLabel";
             this.listUserCoLabel.Size = new System.Drawing.Size(160, 13);
             this.listUserCoLabel.TabIndex = 5;
             this.listUserCoLabel.Text = "Liste des utilisateurs connectés :";
+            // 
+            // messageList
+            // 
+            this.messageList.Location = new System.Drawing.Point(13, 13);
+            this.messageList.Name = "messageList";
+            this.messageList.ReadOnly = true;
+            this.messageList.Size = new System.Drawing.Size(477, 264);
+            this.messageList.TabIndex = 6;
+            this.messageList.Text = "";
+            this.messageList.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.messageList_LinkClicked);
             // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 339);
+            this.Controls.Add(this.messageList);
             this.Controls.Add(this.listUserCoLabel);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.usersListView);
-            this.Controls.Add(this.messagesListBox);
             this.Name = "ChatForm";
             this.Text = "Chat en cours";
             this.ResumeLayout(false);
@@ -96,10 +99,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox messagesListBox;
         private System.Windows.Forms.ListView usersListView;
         private System.Windows.Forms.TextBox messageTextBox;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Label listUserCoLabel;
+        private System.Windows.Forms.RichTextBox messageList;
     }
 }

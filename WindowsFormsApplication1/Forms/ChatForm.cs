@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using IRECE;
 using IRECEClient.Service;
 using System.Threading;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace IRECEClient.Forms
 {
@@ -56,14 +58,21 @@ namespace IRECEClient.Forms
             {
                 if (stm.MessagesByChannel.ContainsKey(channelName) && stm.MessagesByChannel[channelName].Count > 0)
                 {
-                    messagesListBox.Invoke(new Action(() => {
-                        messagesListBox.Items.Add(stm.MessagesByChannel[channelName][0].User + " : " + stm.MessagesByChannel[channelName][0].Text);
+                    messageList.Invoke(new Action(() => {
+                        string user = stm.MessagesByChannel[channelName][0].User;
+                        string text = stm.MessagesByChannel[channelName][0].Text;
+                        messageList.AppendText(user + " : " + text + "\n");
                     }
                     ));
                     
                     stm.MessagesByChannel[channelName].RemoveAt(0);
                 }
             }
+        }
+
+        private void messageList_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
         }
     }
 }
