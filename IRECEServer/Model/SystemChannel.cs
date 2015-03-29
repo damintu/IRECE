@@ -21,6 +21,9 @@ namespace IRECEServer.Model
                 case IRECEMessage.PASSWORD:
                     connectUserWithPassword(c, m.Text);
                     break;
+                case IRECEMessage.JOIN_PRIVATE:
+                    JoinPrivate(c, m);
+                    break;
                 case IRECEMessage.CHANNELS_REQUEST:
                     requestChannels(c);
                     break;
@@ -163,6 +166,25 @@ namespace IRECEServer.Model
                 chan.LeaveChannel(c);
             }
             Console.WriteLine(clientText);
+        }
+
+        public void JoinPrivate(Client c, IRECEMessage m)
+        {
+            Channel newChan = new Channel();
+            newChan.Type = IRECEChannel.TYPE_PRIVATE;
+            newChan.Name = Guid.NewGuid().ToString();
+            newChan.Clients = new List<Client>();
+            newChan.Clients.Add(c);
+            Client c2 = Client.GetByUsername(m.Text);
+            newChan.Clients.Add(c2);
+            Channel.Channels.Add(newChan);
+            IRECEMessage openMessage = new IRECEMessage();
+            openMessage.Channel = newChan.Name;
+            openMessage.Command = IRECEMessage.OPEN_ROOM;
+            openMessage.Text = c.User.Username;
+            newChan.SendMessage(c2, openMessage);
+            openMessage.Text = c2.User.Username;
+            newChan.SendMessage(c, openMessage);
         }
     }
 }

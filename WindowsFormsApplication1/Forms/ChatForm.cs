@@ -18,6 +18,7 @@ namespace IRECEClient.Forms
     public partial class ChatForm : Form
     {
         public string channelName;
+        public string Type = IRECEChannel.TYPE_PUBLIC;
         StreamService stm = StreamService.Instance;
 
         public ChatForm()
@@ -25,16 +26,16 @@ namespace IRECEClient.Forms
             InitializeComponent();
         }
 
-        public ChatForm(string channel)
+        public ChatForm(string channel, string type = IRECEChannel.TYPE_PUBLIC)
         {
             InitializeComponent();
             channelName = channel;
+            Type = type;
             Text = Text + " : " + channelName;
             RefreshUsers();
             Thread receptionThread = new Thread(Receive);
             receptionThread.IsBackground = true;
             receptionThread.Start();
-            userlistTimer.Enabled = true;
         }
 
         public void RefreshUsers()
@@ -86,15 +87,30 @@ namespace IRECEClient.Forms
             Process.Start(e.LinkText);
         }
 
-        private void userlistTimer_Tick(object sender, EventArgs e)
-        {
-            RefreshUsers();
-        }
-
         private void ChatForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             stm.LeaveChannel(channelName);
             ChannelForm.OpenChatForms.Remove(this);
+        }
+
+        private void usersListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            string askedUser = usersListView.SelectedItems[0].Text;
+            foreach (ChatForm form in ChannelForm.OpenChatForms)
+            {
+                if (form.Type == IRECEChannel.TYPE_PRIVATE && form.channelName == askedUser)
+                {
+                    form.Focus();
+                    form.WindowState = FormWindowState.Normal;
+                    return;
+                }
+            }
+            stm.JoinPrivateChannel(askedUser);
+        }
+
+        private void refreshUsersButton_Click(object sender, EventArgs e)
+        {
+            RefreshUsers();
         }
     }
 }

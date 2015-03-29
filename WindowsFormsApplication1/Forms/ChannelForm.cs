@@ -38,7 +38,7 @@ namespace IRECEClient.Forms
             string askedChannel = channelsListView.SelectedItems[0].Text;
             foreach (ChatForm form in ChannelForm.OpenChatForms)
             {
-                if (form.channelName == askedChannel)
+                if (form.Type == IRECEChannel.TYPE_PUBLIC && form.channelName == askedChannel)
                 {
                     form.Focus();
                     form.WindowState = FormWindowState.Normal;
@@ -66,10 +66,23 @@ namespace IRECEClient.Forms
             if (connectionForm.ShowDialog() == DialogResult.OK)
             {
                 RefreshChannels();
+                openRoomTimer.Enabled = true;
             }
             else
             {
                 Close();
+            }
+        }
+
+        private void openRoomTimer_Tick(object sender, EventArgs e)
+        {
+            if (stm.PrivateRooms.Count > 0)
+            {
+                KeyValuePair<string, string> first = stm.PrivateRooms.First();
+                ChatForm chatForm = new ChatForm(first.Value, IRECEChannel.TYPE_PRIVATE);
+                ChannelForm.OpenChatForms.Add(chatForm);
+                chatForm.Show();
+                stm.PrivateRooms.Remove(first.Key);
             }
         }
     }

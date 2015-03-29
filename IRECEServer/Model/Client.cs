@@ -59,5 +59,16 @@ namespace IRECEServer.Model
                 Channel.SystemChannel.Disconnect(this);
             }
         }
+        public static Client GetByUsername(string name)
+        {
+            foreach (Client cli in Clients)
+            {
+                if (cli.User.Username == name)
+                {
+                    return cli;
+                }
+            }
+            return null;
+        }
     }
 }

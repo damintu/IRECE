@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.channelsListView = new System.Windows.Forms.ListView();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.openRoomTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // channelsListView
@@ -51,6 +53,11 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
+            // openRoomTimer
+            // 
+            this.openRoomTimer.Interval = 500;
+            this.openRoomTimer.Tick += new System.EventHandler(this.openRoomTimer_Tick);
+            // 
             // ChannelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -69,5 +76,6 @@
 
         private System.Windows.Forms.ListView channelsListView;
         private System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.Timer openRoomTimer;
     }
 }

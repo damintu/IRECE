@@ -12,5 +12,6 @@ namespace IRECE
         public const string SYSTEM_CH_SYSTEM = "system";
 
         public const string TYPE_PUBLIC = "public";
+        public const string TYPE_PRIVATE = "private";
     }
 }

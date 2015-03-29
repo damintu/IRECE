@@ -19,6 +19,10 @@ namespace IRECE
 
         // Used to join a channel
         public const string JOIN = "JOIN";
+        // Used to create a private room with another user
+        public const string JOIN_PRIVATE = "JOIN_PRIVATE";
+        // Used to tell the client to open a private room
+        public const string OPEN_ROOM = "OPEN_ROOM";
         // Used to leave a channel
         public const string LEAVE = "LEAVE";
 

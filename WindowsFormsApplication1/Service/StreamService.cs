@@ -15,6 +15,7 @@ namespace IRECEClient.Service
         private bool updatedChannels = false;
         public string User;
         public List<string> Channels;
+        public Dictionary<string, string> PrivateRooms = new Dictionary<string, string>();
         private Dictionary<string, bool> updatedUsers = new Dictionary<string, bool>();
         public Dictionary<string, List<string>> UsersByChannel = new Dictionary<string, List<string>>();
         public Dictionary<string, List<IRECEMessage>> MessagesByChannel = new Dictionary<string, List<IRECEMessage>>();
@@ -83,6 +84,9 @@ namespace IRECEClient.Service
                         break;
                     case IRECEMessage.USERLIST_RESPONSE:
                         UpdateUsers(message);
+                        break;
+                    case IRECEMessage.OPEN_ROOM:
+                        OpenRoom(message);
                         break;
                     case IRECEMessage.MESSAGE:
                     case IRECEMessage.USER_DISCONNECT:
@@ -264,6 +268,21 @@ namespace IRECEClient.Service
             return true;
         }
 
+        public bool JoinPrivateChannel(string user)
+        {
+            if (!Connected)
+            {
+                return false;
+            }
+            IRECEMessage message = new IRECEMessage();
+            message.Command = IRECEMessage.JOIN_PRIVATE;
+            message.User = User;
+            message.Channel = IRECEChannel.SYSTEM_CH_SYSTEM;
+            message.Text = user;
+            SendMessage(message);
+            return true;
+        }
+
         public bool LeaveChannel(string channel)
         {
             if (!Connected)
@@ -277,6 +296,14 @@ namespace IRECEClient.Service
             message.Text = "";
             SendMessage(message);
             return true;
+        }
+
+        public void OpenRoom(IRECEMessage message)
+        {
+            if (!PrivateRooms.ContainsKey(message.Text))
+            {
+                PrivateRooms[message.Text] =  message.Channel;
+            }
         }
     }
 }
