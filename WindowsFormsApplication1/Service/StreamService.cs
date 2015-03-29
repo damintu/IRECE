@@ -85,6 +85,8 @@ namespace IRECEClient.Service
                         UpdateUsers(message);
                         break;
                     case IRECEMessage.MESSAGE:
+                    case IRECEMessage.USER_DISCONNECT:
+                    case IRECEMessage.USER_JOIN:
                         ManageTextMessage(message);
                         break;
                 }
@@ -240,13 +242,41 @@ namespace IRECEClient.Service
 
         private void ManageTextMessage(IRECEMessage message)
         {
-            Console.WriteLine("Client");
-            Console.WriteLine(message.ToString());
             if (!MessagesByChannel.ContainsKey(message.Channel))
             {
                 MessagesByChannel[message.Channel] = new List<IRECEMessage>();
             }
             MessagesByChannel[message.Channel].Add(message);
+        }
+
+        public bool JoinChannel(string channel)
+        {
+            if (!Connected)
+            {
+                return false;
+            }
+            IRECEMessage message = new IRECEMessage();
+            message.Command = IRECEMessage.JOIN;
+            message.User = User;
+            message.Channel = channel;
+            message.Text = "";
+            SendMessage(message);
+            return true;
+        }
+
+        public bool LeaveChannel(string channel)
+        {
+            if (!Connected)
+            {
+                return false;
+            }
+            IRECEMessage message = new IRECEMessage();
+            message.Command = IRECEMessage.LEAVE;
+            message.User = User;
+            message.Channel = channel;
+            message.Text = "";
+            SendMessage(message);
+            return true;
         }
     }
 }

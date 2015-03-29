@@ -61,9 +61,18 @@ namespace IRECEClient.Forms
                 if (stm.MessagesByChannel.ContainsKey(channelName) && stm.MessagesByChannel[channelName].Count > 0)
                 {
                     messageList.Invoke(new Action(() => {
-                        string user = stm.MessagesByChannel[channelName][0].User;
-                        string text = stm.MessagesByChannel[channelName][0].Text;
-                        messageList.AppendText(user + " : " + text + "\n");
+                        if (stm.MessagesByChannel[channelName][0].Command == IRECEMessage.USER_DISCONNECT
+                            || stm.MessagesByChannel[channelName][0].Command == IRECEMessage.USER_JOIN)
+                        {
+                            string text = stm.MessagesByChannel[channelName][0].Text;
+                            messageList.AppendText(text + "\n");
+                        }
+                        else
+                        {
+                            string user = stm.MessagesByChannel[channelName][0].User;
+                            string text = stm.MessagesByChannel[channelName][0].Text;
+                            messageList.AppendText(user + " : " + text + "\n");
+                        }
                     }
                     ));
                     
@@ -80,6 +89,12 @@ namespace IRECEClient.Forms
         private void userlistTimer_Tick(object sender, EventArgs e)
         {
             RefreshUsers();
+        }
+
+        private void ChatForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            stm.LeaveChannel(channelName);
+            ChannelForm.OpenChatForms.Remove(this);
         }
     }
 }

@@ -17,11 +17,18 @@ namespace IRECE
         // needs to be set as type to send an image in a channel
         public const string IMAGE = "IMAGE";
 
+        // Used to join a channel
+        public const string JOIN = "JOIN";
+        // Used to leave a channel
+        public const string LEAVE = "LEAVE";
+
         // needs to be sent to disconnect.
         public const string DISCONNECT = "DISCONNECTED";
 
         // sent to the client when an user disconnect
         public const string USER_DISCONNECT = "USER_DISCONNECT";
+        // sent to the client when an user joins the channel
+        public const string USER_JOIN = "USER_JOIN";
 
         // sent when an error occurs.
         public const string ERROR = "ERROR";

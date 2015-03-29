@@ -15,7 +15,7 @@ namespace IRECEClient.Forms
     public partial class ChannelForm : Form
     {
         StreamService stm = StreamService.Instance;
-        private List<ChatForm> openChatForms = new List<ChatForm>();
+        public static List<ChatForm> OpenChatForms = new List<ChatForm>();
 
         public ChannelForm()
         {
@@ -36,7 +36,7 @@ namespace IRECEClient.Forms
         private void channelsListView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             string askedChannel = channelsListView.SelectedItems[0].Text;
-            foreach (ChatForm form in openChatForms)
+            foreach (ChatForm form in ChannelForm.OpenChatForms)
             {
                 if (form.channelName == askedChannel)
                 {
@@ -45,9 +45,14 @@ namespace IRECEClient.Forms
                     return;
                 }
             }
-            ChatForm chatForm = new ChatForm(askedChannel);
-            openChatForms.Add(chatForm);
-            chatForm.Show();
+            bool joined;
+            joined = stm.JoinChannel(askedChannel);
+            if (joined)
+            {
+                ChatForm chatForm = new ChatForm(askedChannel);
+                ChannelForm.OpenChatForms.Add(chatForm);
+                chatForm.Show();
+            }
         }
 
         private void refreshButton_Click(object sender, EventArgs e)

@@ -36,6 +36,16 @@ namespace IRECE
 
         public virtual void Manage(Client c, IRECEMessage m)
         {
+            if (m.Command == IRECEMessage.JOIN)
+            {
+                JoinChannel(c);
+                return;
+            }
+            if (m.Command == IRECEMessage.LEAVE)
+            {
+                LeaveChannel(c);
+                return;
+            }
             UTF8Encoding utf8 = new UTF8Encoding();
             foreach (Client cli in Clients)
             {
@@ -74,6 +84,62 @@ namespace IRECE
                 // Socket is closed during the transmission
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        public static List<Channel> GetPublicChannels()
+        {
+            List<Channel> channels = new List<Channel>();
+            foreach (Channel chan in Channel.Channels)
+            {
+                if (chan.Type == IRECEChannel.TYPE_PUBLIC)
+                {
+                    channels.Add(chan);
+                }
+            }
+            return channels;
+        }
+
+        public void JoinChannel(Client c)
+        {
+            Clients.Add(c);
+            c.Channels.Add(this);
+            string userText = "User " + c.User.Username;
+            userText += " joined the channel.";
+            foreach (Client cli in Clients)
+            {
+                if (cli == c)
+                {
+                    continue;
+                }
+                SendMessage(cli, this, IRECEMessage.USER_JOIN, userText, c.User.Username);
+            }
+        }
+
+        public void LeaveChannel(Client c, string type = "normal")
+        {
+            string userText = "User " + c.User.Username;
+            if (type == "normal")
+            {
+                userText += " disconnected.";
+            }
+            else if (type == "timeout")
+            {
+                userText += " timed out.";
+            }
+            else
+            {
+                userText += " disconnected (error).";
+            }
+            foreach (Client cli in Clients)
+            {
+                if (cli == c)
+                {
+                    continue;
+                }
+                SendMessage(cli, this, IRECEMessage.USER_DISCONNECT, userText, c.User.Username);
+            }
+            Clients.Remove(c);
+            c.Channels.Remove(this);
         }
     }
 }

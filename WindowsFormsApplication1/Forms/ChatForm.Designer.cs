@@ -99,6 +99,7 @@
             this.Controls.Add(this.usersListView);
             this.Name = "ChatForm";
             this.Text = "Chat en cours";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
