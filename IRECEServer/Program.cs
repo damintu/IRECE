@@ -26,6 +26,11 @@ namespace IRECEServer
             ch.Type = Channel.TYPE_PUBLIC;
             ch.Clients = new List<Client>();
             Channel.Channels.Add(ch);
+            Channel ch2 = new Channel();
+            ch2.Name = Channel.SYSTEM_CH_MAIN + "2";
+            ch2.Type = Channel.TYPE_PUBLIC;
+            ch2.Clients = new List<Client>();
+            Channel.Channels.Add(ch2);
 
             Client.Clients = new List<Client>();
             User.Users = new List<User>();

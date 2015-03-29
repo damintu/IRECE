@@ -34,6 +34,7 @@ namespace IRECEClient.Forms
             Thread receptionThread = new Thread(Receive);
             receptionThread.IsBackground = true;
             receptionThread.Start();
+            userlistTimer.Enabled = true;
         }
 
         public void RefreshUsers()
@@ -50,6 +51,7 @@ namespace IRECEClient.Forms
         private void sendButton_Click(object sender, EventArgs e)
         {
             stm.SendMessageToChannel(messageTextBox.Text, channelName);
+            messageTextBox.Clear();
         }
 
         private void Receive()
@@ -73,6 +75,11 @@ namespace IRECEClient.Forms
         private void messageList_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             Process.Start(e.LinkText);
+        }
+
+        private void userlistTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshUsers();
         }
     }
 }

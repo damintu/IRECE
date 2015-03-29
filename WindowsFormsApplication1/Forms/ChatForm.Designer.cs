@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.usersListView = new System.Windows.Forms.ListView();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.listUserCoLabel = new System.Windows.Forms.Label();
             this.messageList = new System.Windows.Forms.RichTextBox();
+            this.userlistTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // usersListView
@@ -80,6 +82,11 @@
             this.messageList.Text = "";
             this.messageList.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.messageList_LinkClicked);
             // 
+            // userlistTimer
+            // 
+            this.userlistTimer.Interval = 500;
+            this.userlistTimer.Tick += new System.EventHandler(this.userlistTimer_Tick);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,5 +111,6 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Label listUserCoLabel;
         private System.Windows.Forms.RichTextBox messageList;
+        private System.Windows.Forms.Timer userlistTimer;
     }
 }

@@ -74,6 +74,7 @@ namespace IRECEServer.Model
             }
             c.User = user;
             addChannel(c, Channel.GetByName(Channel.SYSTEM_CH_MAIN));
+            SendACK(c);
             return true;
         }
 
@@ -81,6 +82,11 @@ namespace IRECEServer.Model
         {
             ch.Clients.Add(c);
             c.Channels.Add(ch);
+        }
+
+        private void removeChannel(Client c, Channel ch)
+        {
+            ch.Clients.Remove(c);
         }
 
         private void requestChannels(Client c)
@@ -185,6 +191,7 @@ namespace IRECEServer.Model
                     SendMessage(cli, chan, IRECEMessage.MESSAGE, userText, c.User.Username);
                     toSendList.Add(cli);
                 }
+                removeChannel(c, chan);
             }
             foreach (Client cli in toSendList)
             {
