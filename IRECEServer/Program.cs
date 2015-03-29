@@ -33,7 +33,7 @@ namespace IRECEServer
             Channel.Channels.Add(ch2);
 
             Client.Clients = new List<Client>();
-            User.Users = new List<User>();
+            User.Load();
 
             try
             {

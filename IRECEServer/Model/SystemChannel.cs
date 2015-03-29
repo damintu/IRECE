@@ -42,7 +42,7 @@ namespace IRECEServer.Model
             {
                 if (cli.User != null && cli.User.Username == username)
                 {
-                    SendError(c, "Username already exists.");
+                    SendError(c, "Username already connected.");
                     return false;
                 }
             }
@@ -65,6 +65,8 @@ namespace IRECEServer.Model
                 user = new User();
                 user.Username = c.Username;
                 user.Password = password;
+                User.Users.Add(user);
+                User.Save();
                 c.User = user;
                 SendACK(c);
                 return true;
